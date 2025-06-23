@@ -1,0 +1,84 @@
+/* ...........for sm devices........  */
+@media (max-width: 576px) {
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .booking-content {
+    padding: 25px;
+  }
+}
+
+/* responsive.css */
+
+/* ----------- for devices below 992px ----------- */
+@media (max-width: 992px) {
+  .interactive-booking {
+    flex-direction: column;
+  }
+
+  .booking-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .booking-option {
+    flex: 1;
+    min-width: 150px;
+    border-left: none;
+    border-bottom: 3px solid #eee;
+    text-align: center;
+  }
+
+  .booking-option.active {
+    border-left: none;
+    border-bottom: 3px solid var(--secondary-color);
+  }
+}
+
+/* ----------- for devices below 768px ----------- */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: var(--primary-color);
+    flex-direction: column;
+    padding: 20px 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-links li a.active::after {
+    bottom: 0;
+    left: 15px;
+    width: calc(100% - 30px);
+  }
+}
