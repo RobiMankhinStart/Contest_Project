@@ -319,6 +319,7 @@ body {
 }
 .booking-options {
   flex: 0 0 300px;
+  position: relative;
 }
 .booking-option {
   padding: 25px;
@@ -326,11 +327,21 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
 }
 .booking-option.active {
   border-left: 3px solid var(--secondary-color);
   background-color: rgba(52, 152, 219, 0.05);
+  z-index: 2;
 }
+
+.booking-option:not(.active) {
+  border-left: 3px solid #eee;
+  background-color: transparent;
+}
+
 .booking-option span {
   display: block;
   font-size: 14px;

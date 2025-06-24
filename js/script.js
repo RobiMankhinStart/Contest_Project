@@ -16,7 +16,7 @@ const bookingFormContainer = document.getElementById("booking-form-container");
 const viewButtons = document.querySelectorAll(".view-btn");
 const confirmBookingBtn = document.getElementById("confirm-booking");
 
-//Temporary Hotel Data Gonna fix later
+// Temporary Hotel Data Gonna fix later
 const hotels = {
   dhaka: {
     name: "RoyalStay Dhaka",
@@ -76,21 +76,24 @@ hamburger.addEventListener("click", function () {
   hamburger.classList.toggle("active");
 });
 
-// to show booking page
-function showBookingPage() {
+// To show booking page with selected location
+function showBookingPage(selectedLocation = null) {
   heroSection.style.display = "none";
   featuredHotels.style.display = "none";
   bookingPage.style.display = "block";
   window.scrollTo(0, 0);
 
-  // active nav link
+  // Updating active nav link
   document.querySelectorAll(".nav-links li a").forEach((link) => {
     link.classList.remove("active");
   });
   bookingLink.classList.add("active");
+
+  // Initializing booking page with selection
+  initializeBookingPage(selectedLocation);
 }
 
-//  to show home page
+// To show home page
 function showHomePage() {
   heroSection.style.display = "flex";
   featuredHotels.style.display = "block";
@@ -106,17 +109,23 @@ function showHomePage() {
 
 // Navigation event listeners
 homeLink.addEventListener("click", function () {
+  // Storing current selection before leaving
+  const activeLocation = document.querySelector(".booking-option.active")
+    ?.dataset.location;
+  sessionStorage.setItem("lastSelectedLocation", activeLocation);
   showHomePage();
   return false;
 });
 
 bookingLink.addEventListener("click", function () {
-  showBookingPage();
+  const lastLocation = sessionStorage.getItem("lastSelectedLocation");
+  showBookingPage(lastLocation);
   return false;
 });
 
 bookNowBtn.addEventListener("click", function () {
-  showBookingPage();
+  const lastLocation = sessionStorage.getItem("lastSelectedLocation");
+  showBookingPage(lastLocation);
   return false;
 });
 
@@ -129,23 +138,7 @@ logo.addEventListener("click", function () {
 viewButtons.forEach((button) => {
   button.addEventListener("click", function () {
     const location = this.closest(".hotel-card").dataset.location;
-    showBookingPage();
-    // Simulating clicking the location in options
-    // setTimeout(() => {
-    //   selectLocation(location);
-    //   document
-    //     .querySelector(`.booking-option[data-location="${location}"]`)
-    //     .click();
-    // Setting the clicked location as active
-    setTimeout(() => {
-      document.querySelectorAll(".booking-option").forEach((opt) => {
-        opt.classList.remove("active");
-      });
-      document
-        .querySelector(`.booking-option[data-location="${location}"]`)
-        .classList.add("active");
-      showLocationDetails(location);
-    }, 100);
+    showBookingPage(location);
   });
 });
 
@@ -156,12 +149,12 @@ Object.keys(hotels).forEach((location) => {
   hotelElement.className = "hotel-details";
   hotelElement.dataset.location = location;
   hotelElement.innerHTML = `
-        <img src="${hotel.image}" alt="${hotel.name}">
-        <h3>${hotel.name}</h3>
-        <div class="rating">${hotel.rating}</div>
-        <p>${hotel.description}</p>
-        <button class="btn view-rooms-btn">View Rooms & Book</button>
-    `;
+    <img src="${hotel.image}" alt="${hotel.name}">
+    <h3>${hotel.name}</h3>
+    <div class="rating">${hotel.rating}</div>
+    <p>${hotel.description}</p>
+    <button class="btn view-rooms-btn">View Rooms & Book</button>
+  `;
   bookingContent.appendChild(hotelElement);
 
   // Adding click handler for view rooms button
@@ -172,33 +165,20 @@ Object.keys(hotels).forEach((location) => {
     });
 });
 
-// Setting first option as active by default.............
-// document.querySelector(".booking-option").click();
+// Initializing booking page with selection
+function initializeBookingPage(selectedLocation = null) {
+  const defaultLocation = selectedLocation || "dhaka";
 
-// Setting Dhaka/first option as default selected option
-function initializeBookingPage() {
-  const defaultLocation = "dhaka";
+  // Removing active class from all options
+  document.querySelectorAll(".booking-option").forEach((option) => {
+    option.classList.remove("active");
+  });
+
+  // Setting active class on selected/default option
   document
     .querySelector(`.booking-option[data-location="${defaultLocation}"]`)
     .classList.add("active");
   showLocationDetails(defaultLocation);
-}
-
-// Call this when showing booking page
-function showBookingPage() {
-  heroSection.style.display = "none";
-  featuredHotels.style.display = "none";
-  bookingPage.style.display = "block";
-  window.scrollTo(0, 0);
-
-  // Updating active nav link
-  document.querySelectorAll(".nav-links li a").forEach((link) => {
-    link.classList.remove("active");
-  });
-  bookingLink.classList.add("active");
-
-  // Initializing booking page with default selection
-  initializeBookingPage();
 }
 
 // Booking option click handler
@@ -212,26 +192,13 @@ bookingOptions.forEach((option) => {
 
     const location = this.dataset.location;
     showLocationDetails(location);
+
+    // Storing selection
+    sessionStorage.setItem("lastSelectedLocation", location);
   });
 });
 
-// function showLocationDetails(location) {
-//   // to hide all hotel details
-//   document.querySelectorAll(".hotel-details").forEach((detail) => {
-//     detail.classList.remove("active");
-//   });
-
-//   // to show selected hotel details
-//   const selectedHotel = document.querySelector(
-//     `.hotel-details[data-location="${location}"]`
-//   );
-//   if (selectedHotel) {
-//     selectedHotel.classList.add("active");
-//   }
-
-//   // Hiding booking form
-//   bookingFormContainer.style.display = "none";
-// }
+// To show location details
 function showLocationDetails(location) {
   // Hiding all hotel details
   document.querySelectorAll(".hotel-details").forEach((detail) => {
@@ -246,17 +213,16 @@ function showLocationDetails(location) {
     selectedHotel.classList.add("active");
   }
 
-  //To Hide booking form by default (user needs to click "View Rooms & Book")
+  // Hiding booking form by default
   bookingFormContainer.style.display = "none";
 
-  // To Show default content if no hotel is selected (shouldn't happen with our changes)
-  if (!selectedHotel) {
-    document.querySelector(".default-content").style.display = "block";
-  } else {
-    document.querySelector(".default-content").style.display = "none";
-  }
+  // Showing default content if no hotel selected
+  document.querySelector(".default-content").style.display = selectedHotel
+    ? "none"
+    : "block";
 }
 
+// To show booking form with calculations
 function showBookingForm(location) {
   const hotel = hotels[location];
   const roomTypeSelect = document.getElementById("room-type");
@@ -264,11 +230,12 @@ function showBookingForm(location) {
   // Clearing previous options
   roomTypeSelect.innerHTML = "";
 
-  // Addding new options
+  // Adding new options
   hotel.rooms.forEach((room) => {
     const option = document.createElement("option");
-    option.value = room.type;
+    option.value = `${room.type} - ৳${room.price.toLocaleString()}`;
     option.textContent = `${room.type} - ৳${room.price.toLocaleString()}/night`;
+    option.dataset.price = room.price;
     roomTypeSelect.appendChild(option);
   });
 
@@ -280,75 +247,47 @@ function showBookingForm(location) {
   document.getElementById("check-in").valueAsDate = today;
   document.getElementById("check-out").valueAsDate = tomorrow;
 
-  // Show the form
+  // Showing the form
   bookingFormContainer.style.display = "block";
 
-  // Scroll to form
+  // Adding event listeners for dynamic calculation
+  document
+    .getElementById("room-type")
+    .addEventListener("change", updatePriceSummary);
+  document
+    .getElementById("adults")
+    .addEventListener("change", updatePriceSummary);
+  document
+    .getElementById("children")
+    .addEventListener("change", updatePriceSummary);
+  document
+    .getElementById("check-in")
+    .addEventListener("change", updatePriceSummary);
+  document
+    .getElementById("check-out")
+    .addEventListener("change", updatePriceSummary);
+
+  // Initial calculation
+  updatePriceSummary();
+
+  // Scrolling to form
   bookingFormContainer.scrollIntoView({ behavior: "smooth" });
 }
 
-// Confirm booking button
-// confirmBookingBtn.addEventListener("click", function () {
-//   const location = document.querySelector(
-//     ".booking-option.active h3"
-//   ).textContent;
-//   const checkIn = document.getElementById("check-in").value;
-//   const checkOut = document.getElementById("check-out").value;
-//   const roomType = document.getElementById("room-type").value;
-//   const guests = document.getElementById("guests").value;
-
-//   alert(
-//     `Booking confirmed!\n\nLocation: ${location}\nCheck-in: ${checkIn}\nCheck-out: ${checkOut}\nRoom Type: ${roomType}\nGuests: ${guests}`
-//   );
-// });
-// new updated
-// Confirm booking button - UPDATED VERSION
-confirmBookingBtn.addEventListener("click", function () {
-  const location = document.querySelector(
-    ".booking-option.active h3"
-  ).textContent;
-  const checkIn = document.getElementById("check-in").value;
-  const checkOut = document.getElementById("check-out").value;
-  const roomType = document.getElementById("room-type").value.split(" - ")[0];
-  const adults = document.getElementById("adults").value;
-  const children = document.getElementById("children").value;
-  const totalCost = document.getElementById("total-cost").textContent;
-
-  // Get additional calculation details
-  const nights = document.getElementById("nights-count").textContent;
-  const roomsNeeded = document.getElementById("total-rooms").textContent;
-  const roomRate = document.getElementById("room-rate").textContent;
-
-  alert(
-    `Booking confirmed!\n\n` +
-      `Location: ${location}\n` +
-      `Check-in: ${checkIn}\n` +
-      `Check-out: ${checkOut}\n` +
-      `Room Type: ${roomType}\n` +
-      `Adults: ${adults}\n` +
-      `Children: ${children}\n` +
-      `\n` +
-      `Price Details:\n` +
-      `- Room Rate: ${roomRate}/night\n` +
-      `- Rooms Needed: ${roomsNeeded}\n` +
-      `- Nights: ${nights}\n` +
-      `\n` +
-      `Total Cost: ${totalCost}`
-  );
-});
-
-// Adding these new functions
+// Calculating nights between dates
 function calculateNights(checkIn, checkOut) {
-  const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+  const oneDay = 24 * 60 * 60 * 1000;
   const firstDate = new Date(checkIn);
   const secondDate = new Date(checkOut);
   return Math.round(Math.abs((firstDate - secondDate) / oneDay));
 }
 
+// Calculating rooms needed based on adults
 function calculateRooms(adults) {
   return Math.ceil(adults / 2);
 }
 
+// Updating price summary display
 function updatePriceSummary() {
   const roomTypeSelect = document.getElementById("room-type");
   const adults = parseInt(document.getElementById("adults").value) || 1;
@@ -375,54 +314,44 @@ function updatePriceSummary() {
   ).textContent = `৳${totalCost.toLocaleString()}`;
 }
 
-// Updating showBookingForm function
-function showBookingForm(location) {
-  const hotel = hotels[location];
-  const roomTypeSelect = document.getElementById("room-type");
+// Confirm booking button
+confirmBookingBtn.addEventListener("click", function () {
+  const location = document.querySelector(
+    ".booking-option.active h3"
+  ).textContent;
+  const checkIn = document.getElementById("check-in").value;
+  const checkOut = document.getElementById("check-out").value;
+  const roomType = document.getElementById("room-type").value.split(" - ")[0];
+  const adults = document.getElementById("adults").value;
+  const children = document.getElementById("children").value;
+  const totalCost = document.getElementById("total-cost").textContent;
+  const nights = document.getElementById("nights-count").textContent;
+  const roomsNeeded = document.getElementById("total-rooms").textContent;
+  const roomRate = document.getElementById("room-rate").textContent;
 
-  // Clearing previous options
-  roomTypeSelect.innerHTML = "";
+  alert(
+    `Booking confirmed!\n\n` +
+      `Location: ${location}\n` +
+      `Check-in: ${checkIn}\n` +
+      `Check-out: ${checkOut}\n` +
+      `Room Type: ${roomType}\n` +
+      `Adults: ${adults}\n` +
+      `Children: ${children}\n\n` +
+      `Price Details:\n` +
+      `- Room Rate: ${roomRate}/night\n` +
+      `- Rooms Needed: ${roomsNeeded}\n` +
+      `- Nights: ${nights}\n\n` +
+      `Total Cost: ${totalCost}`
+  );
+});
 
-  // Addding new options
-  hotel.rooms.forEach((room) => {
-    const option = document.createElement("option");
-    option.value = `${room.type} - ৳${room.price.toLocaleString()}`;
-    option.textContent = `${room.type} - ৳${room.price.toLocaleString()}/night`;
-    option.dataset.price = room.price;
-    roomTypeSelect.appendChild(option);
-  });
-
-  // Setting default dates (today and tomorrow)
-  const today = new Date();
-  const tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1);
-
-  document.getElementById("check-in").valueAsDate = today;
-  document.getElementById("check-out").valueAsDate = tomorrow;
-
-  // to show the form
-  bookingFormContainer.style.display = "block";
-
-  // Addding event listeners for dynamic calculation
-  document
-    .getElementById("room-type")
-    .addEventListener("change", updatePriceSummary);
-  document
-    .getElementById("adults")
-    .addEventListener("change", updatePriceSummary);
-  document
-    .getElementById("children")
-    .addEventListener("change", updatePriceSummary);
-  document
-    .getElementById("check-in")
-    .addEventListener("change", updatePriceSummary);
-  document
-    .getElementById("check-out")
-    .addEventListener("change", updatePriceSummary);
-
-  // Initial calculation
-  updatePriceSummary();
-
-  // Scrolling to form
-  bookingFormContainer.scrollIntoView({ behavior: "smooth" });
-}
+// Initial page load
+document.addEventListener("DOMContentLoaded", function () {
+  const lastLocation = sessionStorage.getItem("lastSelectedLocation");
+  if (
+    window.location.hash === "#booking" ||
+    document.querySelector(".nav-booking").classList.contains("active")
+  ) {
+    showBookingPage(lastLocation);
+  }
+});
