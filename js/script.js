@@ -22,7 +22,7 @@ const hotels = {
     name: "RoyalStay Dhaka",
     description:
       "Located in the heart of the capital city, our Dhaka property offers luxury accommodations with stunning city views. Enjoy our world-class amenities including a rooftop pool, spa, and multiple dining options.",
-    image: "https://source.unsplash.com/random/800x600/?hotel,dhaka",
+    image: "./Images/Hotel/8.jpg",
     rating: "★★★★☆",
     rooms: [
       { type: "Standard Room", price: 8000 },
@@ -35,7 +35,7 @@ const hotels = {
     name: "RoyalStay Chittagong",
     description:
       "Overlooking the Bay of Bengal, our Chittagong hotel combines coastal charm with modern luxury. Relax in our beachfront rooms and enjoy fresh seafood at our signature restaurant.",
-    image: "https://source.unsplash.com/random/800x600/?hotel,chittagong",
+    image: "./Images/Hotel/15.jpg",
     rating: "★★★★★",
     rooms: [
       { type: "Standard Room", price: 7500 },
@@ -48,7 +48,7 @@ const hotels = {
     name: "RoyalStay Sylhet",
     description:
       "Nestled in the lush tea gardens of Sylhet, our resort offers a tranquil escape. Experience the beauty of nature while enjoying our premium services and authentic local cuisine.",
-    image: "https://source.unsplash.com/random/800x600/?hotel,sylhet",
+    image: "./Images/Hotel/5.jpg",
     rating: "★★★★☆",
     rooms: [
       { type: "Garden View Room", price: 7000 },
@@ -60,7 +60,7 @@ const hotels = {
     name: "RoyalStay Cox's Bazar",
     description:
       "Steps away from the world's longest beach, our Cox's Bazar property offers breathtaking ocean views. Enjoy water sports, spa treatments, and romantic beachside dining.",
-    image: "https://source.unsplash.com/random/800x600/?hotel,cox's-bazar",
+    image: "./Images/Hotel/6.jpg",
     rating: "★★★★★",
     rooms: [
       { type: "Standard Room", price: 9000 },
