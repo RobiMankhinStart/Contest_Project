@@ -71,7 +71,7 @@ const hotels = {
 };
 
 // Mobile menu toggle
-hamburger.addEventListener("click", function () {
+hamburger.addEventListener("click", () => {
   navLinks.classList.toggle("active");
   hamburger.classList.toggle("active");
 });
