@@ -193,26 +193,56 @@ body {
 }
 
 .hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url("../Images/Hotel/1.jpg");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 100vh; */
   display: flex;
   align-items: center;
   text-align: center;
   color: white;
   margin-top: 60px;
+  /* after bg video  */
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+
+  width: 100%;
+  height: 100vh; /* Adjust as needed */
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
 }
+.hero-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #000; /* Fallback color */
+}
+
+.hero-vid {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .hero h1 {
   font-size: 48px;
   margin-bottom: 20px;
   color: var(--Brand-color);
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
 }
 .hero p {
   font-size: 20px;
   margin-bottom: 30px;
   color: var(--Brand-color);
+  /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); */
 }
 
 /* Featured Hotels */

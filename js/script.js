@@ -81,7 +81,7 @@ function showBookingPage(selectedLocation = null) {
   heroSection.style.display = "none";
   featuredHotels.style.display = "none";
   bookingPage.style.display = "block";
-  window.scrollTo(0, 0);
+  window.scrollTo(0, 50);
 
   // Updating active nav link
   document.querySelectorAll(".nav-links li a").forEach((link) => {
@@ -178,6 +178,7 @@ function initializeBookingPage(selectedLocation = null) {
   document
     .querySelector(`.booking-option[data-location="${defaultLocation}"]`)
     .classList.add("active");
+
   showLocationDetails(defaultLocation);
 }
 
