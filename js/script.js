@@ -351,8 +351,188 @@ document.addEventListener("DOMContentLoaded", function () {
   const lastLocation = sessionStorage.getItem("lastSelectedLocation");
   if (
     window.location.hash === "#booking" ||
-    document.querySelector(".nav-booking").classList.contains("active")
+    // document.querySelector(".nav-booking").classList.contains("active")
+    (bookingLink && bookingLink.classList.contains("active"))
   ) {
     showBookingPage(lastLocation);
   }
 });
+
+// .......................................
+// .....................slick Slider ...........
+///////////////////////////////////////////////////////////
+// Initialize Slick Sliders when document is ready
+$(document).ready(function () {
+  // Function to initialize all sliders
+  function initializeSliders() {
+    $(".leisure").slick({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      fade: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      pauseOnHover: false,
+      cssEase: "linear",
+      adaptiveHeight: true,
+    });
+
+    $(".wellness").slick({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      fade: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 2400,
+      pauseOnHover: false,
+      cssEase: "linear",
+      adaptiveHeight: true,
+    });
+
+    $(".culinary").slick({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      fade: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 2800,
+      pauseOnHover: false,
+      cssEase: "linear",
+      adaptiveHeight: true,
+    });
+
+    $(".butler-services").slick({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      fade: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 3200,
+      pauseOnHover: false,
+      cssEase: "linear",
+      adaptiveHeight: true,
+    });
+
+    $(".event-venues").slick({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      fade: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 3600,
+      pauseOnHover: false,
+      cssEase: "linear",
+      adaptiveHeight: true,
+    });
+  }
+  console.log($(".leisure img").attr("src"));
+  // Check if Slick is loaded
+  if (typeof $.fn.slick === "function") {
+    initializeSliders();
+  } else {
+    // Load Slick from CDN if not available
+    $.getScript(
+      "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    )
+      .done(initializeSliders)
+      .fail(function () {
+        console.error("Failed to load Slick slider");
+      });
+  }
+});
+
+// Set current year
+const yearEl = document.querySelector(".year");
+const currentYear = new Date().getFullYear();
+yearEl.textContent = currentYear;
+
+///////////////////////////////////////////////////////////
+// Make mobile navigation work
+
+const btnNavEl = document.querySelector(".btn-mobile-nav");
+const headerEl = document.querySelector(".header");
+
+btnNavEl.addEventListener("click", function () {
+  headerEl.classList.toggle("nav-open");
+});
+
+///////////////////////////////////////////////////////////
+// Smooth scrolling animation
+
+const allLinks = document.querySelectorAll("a:link");
+
+allLinks.forEach(function (link) {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    const href = link.getAttribute("href");
+
+    // Scroll back to top
+    if (href === "#")
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+    // Scroll to other links
+    if (href !== "#" && href.startsWith("#")) {
+      const sectionEl = document.querySelector(href);
+      sectionEl.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Close mobile naviagtion
+    if (link.classList.contains("main-nav-link"))
+      headerEl.classList.toggle("nav-open");
+  });
+});
+
+///////////////////////////////////////////////////////////
+// Sticky navigation
+
+const sectionHeroEl = document.querySelector(".section-hero");
+
+const obs = new IntersectionObserver(
+  function (entries) {
+    const ent = entries[0];
+    console.log(ent);
+
+    if (ent.isIntersecting === false) {
+      document.body.classList.add("sticky");
+    }
+
+    if (ent.isIntersecting === true) {
+      document.body.classList.remove("sticky");
+    }
+  },
+  {
+    // In the viewport
+    root: null,
+    threshold: 0,
+    rootMargin: "-80px",
+  }
+);
+obs.observe(sectionHeroEl);
+
+///////////////////////////////////////////////////////////
+// Fixing flexbox gap property missing in some Safari versions
+function checkFlexGap() {
+  var flex = document.createElement("div");
+  flex.style.display = "flex";
+  flex.style.flexDirection = "column";
+  flex.style.rowGap = "1px";
+
+  flex.appendChild(document.createElement("div"));
+  flex.appendChild(document.createElement("div"));
+
+  document.body.appendChild(flex);
+  var isSupported = flex.scrollHeight === 1;
+  flex.parentNode.removeChild(flex);
+  console.log(isSupported);
+
+  if (!isSupported) document.body.classList.add("no-flexbox-gap");
+}
+checkFlexGap();

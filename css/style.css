@@ -23,31 +23,6 @@
   --lightBG_color_four: rgb(229, 221, 210);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-img {
-  width: 100%;
-  max-width: 100%;
-  vertical-align: middle;
-}
-
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
-  background-color: #f9f9f9;
-}
-
-.container {
-  width: 90%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
 /* Button Styling */
 .btn {
   cursor: pointer;
@@ -396,7 +371,10 @@ body {
 .section-facility {
   padding: 9.6rem 0;
 }
-
+.custom-grid--2-cols {
+  /* grid-template-columns: 1fr;
+  gap: 4.8rem; */
+}
 .custom-grid--2-cols {
   grid-template-columns: 50% 50%;
 }
@@ -421,15 +399,24 @@ body {
 
 .step-img-box {
   position: relative;
+  position: absolute;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* margin-top: -20rem; */
+  /* margin-left: -20rem; */
+  /* margin-bottom: -20rem; */
+  /* width: 100rem;
+  height: 100rem; */
+  position: relative;
+  margin: 0;
+  max-width: 600px;
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -20rem;
-  margin-left: -20rem;
-  margin-bottom: -20rem;
-  width: 100rem;
-  height: 100rem;
+  padding: 0;
+  display: block;
+  overflow: hidden;
 }
 
 .step-img-box::before,
@@ -444,12 +431,10 @@ body {
 }
 
 .step-img-box::before {
-  width: 60%;
   /* height: 60%; */
-
   /* 60% of parent's width */
+  width: 60%;
   padding-bottom: 60%;
-
   background-color: #fdf2e9;
   z-index: -2;
 }
@@ -460,15 +445,159 @@ body {
   background-color: #fae5d3;
   z-index: -1;
 }
-
+.step-img {
+  /* background-color: #333; */
+  height: 300px;
+}
 .step-img img {
+  /* height: auto; */
+  /* z-index: 10; */
+  /* height: 300px; */
   width: 50%;
   border-radius: 1rem;
   justify-self: center;
-  /* z-index: 10; */
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  max-height: 300px;
+}
+
+/* Facility Section Styles */
+
+@media (min-width: 768px) {
+  .custom-grid--2-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.step-text-box {
+  padding: 2rem;
+}
+
+.step-number {
+  font-size: 8.6rem;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 1.2rem;
+}
+
+.step-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
+.step-description span {
+  font-size: 2.6rem;
+  font-family: "Cormorant", serif;
+  font-weight: 800;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .step-img img {
+    height: 250px;
+  }
+
+  .step-number {
+    font-size: 6.2rem;
+  }
+
+  .step-description {
+    font-size: 1.6rem;
+  }
+
+  .step-description span {
+    font-size: 2rem;
+  }
 }
 
 /* FACILITY part ending*/
+/**************************/
+
+/**************************/
+/* Flip Cards Feature Starts */
+/**************************/
+.feature {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.feature-icon {
+  color: #e67e22;
+  height: 3.2rem;
+  width: 3.2rem;
+  background-color: #fdf2e9;
+  margin-bottom: 3.2rem;
+  padding: 1.6rem;
+  border-radius: 50%;
+}
+
+.feature-title {
+  font-size: 2.4rem;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 1.6rem;
+}
+
+.feature-text {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.feature-img {
+  border-radius: 1rem;
+  width: 26rem;
+  height: 26rem;
+}
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+
+.flip-card {
+  background-color: transparent;
+  width: 23.7rem;
+  height: 23.7rem;
+  perspective: 100rem; /* 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+}
+
+/* Style the back side */
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/**************************/
+/* Flip Cards Feature Ends */
 /**************************/
 
 /**************************/
@@ -522,6 +651,83 @@ body {
 
 /**************************/
 /* MARQUEE SECTION ending*/
+/**************************/
+
+/**************************/
+/* gallery part starting */
+/**************************/
+
+.section-chef {
+  background-color: #fdf2e9;
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  align-items: center;
+}
+
+.chef-container {
+  padding: 9.6rem;
+  display: grid;
+  gap: 10rem;
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.chef {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 4.8rem;
+  column-gap: 8rem; */
+}
+
+.chef-textbox {
+  font-size: 1.8rem;
+}
+.chef-textbox .heading-secondary {
+  margin-bottom: 70px;
+}
+.chef-textbox p {
+  color: #555;
+  line-height: 2;
+}
+
+.testimonial-img {
+  width: 6.4rem;
+  border-radius: 50%;
+  margin-bottom: 1.2rem;
+}
+
+.testimonial-text {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin-bottom: 1.6rem;
+}
+
+.testimonial-name {
+  font-size: 1.6rem;
+  color: #6f6f6f;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  padding: 1.6rem;
+}
+
+.gallery-item {
+  overflow: hidden;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  transition: all 0.4s;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.1);
+}
+/**************************/
+/* gallery part ending */
 /**************************/
 
 /* ..................

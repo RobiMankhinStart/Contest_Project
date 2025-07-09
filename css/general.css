@@ -80,14 +80,26 @@ body {
   line-height: 1;
   font-weight: 400;
   color: #555;
+  background-color: #f9f9f9;
 
   /* Only works if there is nothing absolutely positioned in relation to body */
   overflow-x: hidden;
+}
+img {
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
 }
 
 /**************************/
 /* GENRAL REUSABLE COMPONENTS */
 /**************************/
+/* .container {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+} */
 
 .container {
   /* 1140px */
