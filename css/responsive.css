@@ -312,6 +312,11 @@
 /* ....................====== */
 @media (min-width: 768px) and (max-width: 991px) {
   /* Navigation bar adjustments */
+  .nav-links li a {
+    font-size: 14px;
+
+    padding: 10px 6px;
+  }
   .logo {
     width: 200px;
   }
