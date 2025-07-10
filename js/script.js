@@ -1,4 +1,6 @@
-// DOM Elements
+// ====..........................=====
+// DOM ELEMENT Selection
+//..........................==========
 const homeLink = document.getElementById("home-link");
 const bookingLink = document.getElementById("booking-link");
 const bookNowBtn = document.getElementById("book-now-btn");
@@ -23,7 +25,9 @@ const sectionLinks = document.querySelectorAll(
   '.nav-links a[href^="#"]:not(#home-link):not(#booking-link)'
 );
 
-// Temporary Hotel Data
+// ======..........................===
+// Fake Hotel Data
+// ==..........................=======
 const hotels = {
   dhaka: {
     name: "RoyalStay Dhaka",
@@ -73,273 +77,14 @@ const hotels = {
   },
 };
 
-// =====================
-// NAVIGATION FUNCTIONS
-// =====================
-
-function hideAllSections() {
-  allSections.forEach((section) => {
-    if (section.id !== "booking-page") {
-      section.style.display = "none";
-      // footer.style.display = "none";
-    }
-  });
-}
-
-function showAllSections() {
-  allSections.forEach((section) => {
-    section.style.display = "";
-  });
-  bookingPage.style.display = "none";
-  heroSection.style.display = "flex";
-  featuredHotels.style.display = "block";
-  // footer.style.display = "block";
-}
-
-function hideSectionNavLinks() {
-  sectionLinks.forEach((link) => {
-    link.parentElement.style.display = "none";
-  });
-}
-
-function showSectionNavLinks() {
-  sectionLinks.forEach((link) => {
-    link.parentElement.style.display = "";
-  });
-}
-
-function showBookingPage(selectedLocation = null) {
-  hideAllSections();
-  bookingPage.style.display = "block";
-  window.scrollTo(0, 50);
-
-  // Updating active nav links
-  document.querySelectorAll(".nav-links li a").forEach((link) => {
-    link.classList.remove("active");
-  });
-  bookingLink.classList.add("active");
-  hideSectionNavLinks();
-
-  // Initializing booking page
-  initializeBookingPage(selectedLocation);
-}
-
-function showHomePage() {
-  showAllSections();
-  window.scrollTo(0, 0);
-  showSectionNavLinks();
-
-  // Updating active nav links
-  document.querySelectorAll(".nav-links li a").forEach((link) => {
-    link.classList.remove("active");
-  });
-  homeLink.classList.add("active");
-}
-
-// =====================
-// BOOKING PAGE FUNCTIONS
-// =====================
-
-function initializeBookingPage(selectedLocation = null) {
-  const defaultLocation = selectedLocation || "dhaka";
-
-  bookingOptions.forEach((option) => {
-    option.classList.remove("active");
-    if (option.dataset.location === defaultLocation) {
-      option.classList.add("active");
-    }
-  });
-
-  showLocationDetails(defaultLocation);
-}
-
-function showLocationDetails(location) {
-  document.querySelectorAll(".hotel-details").forEach((detail) => {
-    detail.classList.remove("active");
-  });
-
-  const selectedHotel = document.querySelector(
-    `.hotel-details[data-location="${location}"]`
-  );
-  if (selectedHotel) {
-    selectedHotel.classList.add("active");
-  }
-
-  bookingFormContainer.style.display = "none";
-  document.querySelector(".default-content").style.display = selectedHotel
-    ? "none"
-    : "block";
-}
-
-function showBookingForm(location) {
-  const hotel = hotels[location];
-  const roomTypeSelect = document.getElementById("room-type");
-
-  roomTypeSelect.innerHTML = "";
-  hotel.rooms.forEach((room) => {
-    const option = document.createElement("option");
-    option.value = `${room.type} - ৳${room.price.toLocaleString()}`;
-    option.textContent = `${room.type} - ৳${room.price.toLocaleString()}/night`;
-    option.dataset.price = room.price;
-    roomTypeSelect.appendChild(option);
-  });
-
-  const today = new Date();
-  const tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1);
-
-  document.getElementById("check-in").valueAsDate = today;
-  document.getElementById("check-out").valueAsDate = tomorrow;
-
-  bookingFormContainer.style.display = "block";
-
-  // Adding event listeners
-  ["room-type", "adults", "children", "check-in", "check-out"].forEach((id) => {
-    document.getElementById(id).addEventListener("change", updatePriceSummary);
-  });
-
-  updatePriceSummary();
-  bookingFormContainer.scrollIntoView({ behavior: "smooth" });
-}
-
-function calculateNights(checkIn, checkOut) {
-  const oneDay = 24 * 60 * 60 * 1000;
-  return Math.round(
-    Math.abs((new Date(checkIn) - new Date(checkOut)) / oneDay)
-  );
-}
-
-function calculateRooms(adults) {
-  return Math.ceil(adults / 2);
-}
-
-function updatePriceSummary() {
-  const roomTypeSelect = document.getElementById("room-type");
-  const adults = parseInt(document.getElementById("adults").value) || 1;
-  const children = parseInt(document.getElementById("children").value) || 0;
-  const checkIn = document.getElementById("check-in").value;
-  const checkOut = document.getElementById("check-out").value;
-
-  if (!checkIn || !checkOut || !roomTypeSelect.value) return;
-
-  const nights = calculateNights(checkIn, checkOut);
-  const roomsNeeded = calculateRooms(adults);
-  const roomPrice =
-    parseInt(roomTypeSelect.value.split("৳")[1].replace(/,/g, "")) || 0;
-  const totalCost = roomsNeeded * roomPrice * nights;
-
-  document.getElementById(
-    "room-rate"
-  ).textContent = `৳${roomPrice.toLocaleString()}`;
-  document.getElementById("nights-count").textContent = nights;
-  document.getElementById("total-rooms").textContent = roomsNeeded;
-  document.getElementById(
-    "total-cost"
-  ).textContent = `৳${totalCost.toLocaleString()}`;
-}
-
-// =====================
-// EVENT LISTENERS
-// =====================
-
-// Mobile menu toggle
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
-  hamburger.classList.toggle("active");
-});
-
-// Navigation links
-homeLink.addEventListener("click", (e) => {
-  e.preventDefault();
-  const activeLocation = document.querySelector(".booking-option.active")
-    ?.dataset.location;
-  sessionStorage.setItem("lastSelectedLocation", activeLocation);
-  showHomePage();
-});
-
-bookingLink.addEventListener("click", (e) => {
-  e.preventDefault();
-  showBookingPage(sessionStorage.getItem("lastSelectedLocation"));
-});
-
-bookNowBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  showBookingPage(sessionStorage.getItem("lastSelectedLocation"));
-});
-
-logo.addEventListener("click", (e) => {
-  e.preventDefault();
-  showHomePage();
-});
-
-// Hotel card view buttons
-viewButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    const location = this.closest(".hotel-card").dataset.location;
-    showBookingPage(location);
-  });
-});
-
-// Booking options
-bookingOptions.forEach((option) => {
-  option.addEventListener("click", function () {
-    bookingOptions.forEach((opt) => opt.classList.remove("active"));
-    this.classList.add("active");
-    const location = this.dataset.location;
-    showLocationDetails(location);
-    sessionStorage.setItem("lastSelectedLocation", location);
-  });
-});
-
-// Confirm booking button
-confirmBookingBtn.addEventListener("click", function () {
-  const location = document.querySelector(
-    ".booking-option.active h3"
-  ).textContent;
-  const checkIn = document.getElementById("check-in").value;
-  const checkOut = document.getElementById("check-out").value;
-  const roomType = document.getElementById("room-type").value.split(" - ")[0];
-  const adults = document.getElementById("adults").value;
-  const children = document.getElementById("children").value;
-  const totalCost = document.getElementById("total-cost").textContent;
-  const nights = document.getElementById("nights-count").textContent;
-  const roomsNeeded = document.getElementById("total-rooms").textContent;
-  const roomRate = document.getElementById("room-rate").textContent;
-
-  alert(
-    `Booking confirmed!\n\nLocation: ${location}\nCheck-in: ${checkIn}\nCheck-out: ${checkOut}\nRoom Type: ${roomType}\nAdults: ${adults}\nChildren: ${children}\n\nPrice Details:\n- Room Rate: ${roomRate}/night\n- Rooms Needed: ${roomsNeeded}\n- Nights: ${nights}\n\nTotal Cost: ${totalCost}`
-  );
-});
-
-// Create hotel details elements
-Object.keys(hotels).forEach((location) => {
-  const hotel = hotels[location];
-  const hotelElement = document.createElement("div");
-  hotelElement.className = "hotel-details";
-  hotelElement.dataset.location = location;
-  hotelElement.innerHTML = `
-    <img src="${hotel.image}" alt="${hotel.name}">
-    <h3>${hotel.name}</h3>
-    <div class="rating">${hotel.rating}</div>
-    <p>${hotel.description}</p>
-    <button class="btn view-rooms-btn">View Rooms & Book</button>
-  `;
-  bookingContent.appendChild(hotelElement);
-
-  hotelElement
-    .querySelector(".view-rooms-btn")
-    .addEventListener("click", () => {
-      showBookingForm(location);
-    });
-});
-
-// =====================
-// INITIALIZATION
-// =====================
-
-// Initialize Slick sliders
+// =========..........................
+// Initializing  SLIDER
+// =====..........................====
 function initializeSliders() {
-  if (typeof $.fn.slick !== "function") return;
+  if (typeof $.fn.slick !== "function") {
+    console.warn("Slick slider not loaded");
+    return;
+  }
 
   $(".leisure").slick({
     dots: false,
@@ -407,16 +152,287 @@ function initializeSliders() {
   });
 }
 
-// On DOM content loaded
+// =========..........................
+// NAVIGATION FUNCTIONS
+// ======..........................===
+function hideAllSections() {
+  allSections.forEach((section) => {
+    if (section.id !== "booking-page") {
+      section.style.display = "none";
+    }
+  });
+}
+
+function showAllSections() {
+  allSections.forEach((section) => {
+    section.style.display = "";
+  });
+  bookingPage.style.display = "none";
+  heroSection.style.display = "flex";
+  featuredHotels.style.display = "block";
+}
+
+function hideSectionNavLinks() {
+  sectionLinks.forEach((link) => {
+    link.parentElement.style.display = "none";
+  });
+}
+
+function showSectionNavLinks() {
+  sectionLinks.forEach((link) => {
+    link.parentElement.style.display = "";
+  });
+}
+
+function showBookingPage(selectedLocation = null) {
+  hideAllSections();
+  bookingPage.style.display = "block";
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+
+  document.querySelectorAll(".nav-links li a").forEach((link) => {
+    link.classList.remove("active");
+  });
+  bookingLink.classList.add("active");
+  hideSectionNavLinks();
+
+  initializeBookingPage(selectedLocation);
+}
+
+function showHomePage() {
+  showAllSections();
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+  showSectionNavLinks();
+
+  document.querySelectorAll(".nav-links li a").forEach((link) => {
+    link.classList.remove("active");
+  });
+  homeLink.classList.add("active");
+}
+
+// .........................
+// BOOKING PAGE FUNCTIONS
+// ....................
+function initializeBookingPage(selectedLocation = null) {
+  const defaultLocation = selectedLocation || "dhaka";
+
+  bookingOptions.forEach((option) => {
+    option.classList.remove("active");
+    if (option.dataset.location === defaultLocation) {
+      option.classList.add("active");
+    }
+  });
+
+  showLocationDetails(defaultLocation);
+}
+
+function showLocationDetails(location) {
+  document.querySelectorAll(".hotel-details").forEach((detail) => {
+    detail.classList.remove("active");
+  });
+
+  const selectedHotel = document.querySelector(
+    `.hotel-details[data-location="${location}"]`
+  );
+  if (selectedHotel) {
+    selectedHotel.classList.add("active");
+  }
+
+  bookingFormContainer.style.display = "none";
+  document.querySelector(".default-content").style.display = selectedHotel
+    ? "none"
+    : "block";
+}
+
+function showBookingForm(location) {
+  const hotel = hotels[location];
+  const roomTypeSelect = document.getElementById("room-type");
+
+  roomTypeSelect.style.minWidth = "100%";
+  roomTypeSelect.style.width = "auto";
+
+  roomTypeSelect.innerHTML = "";
+  hotel.rooms.forEach((room) => {
+    const option = document.createElement("option");
+    option.value = `${room.type} - ৳${room.price.toLocaleString()}`;
+    option.textContent = `${room.type} - ৳${room.price.toLocaleString()}/night`;
+    option.dataset.price = room.price;
+    roomTypeSelect.appendChild(option);
+  });
+
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+
+  document.getElementById("check-in").valueAsDate = today;
+  document.getElementById("check-out").valueAsDate = tomorrow;
+
+  bookingFormContainer.style.display = "block";
+
+  ["room-type", "adults", "children", "check-in", "check-out"].forEach((id) => {
+    document.getElementById(id).addEventListener("change", updatePriceSummary);
+  });
+
+  updatePriceSummary();
+  bookingFormContainer.scrollIntoView({ behavior: "smooth" });
+}
+
+function calculateNights(checkIn, checkOut) {
+  const oneDay = 24 * 60 * 60 * 1000;
+  const checkInDate = new Date(checkIn);
+  const checkOutDate = new Date(checkOut);
+
+  if (checkOutDate <= checkInDate) {
+    checkOutDate.setDate(checkInDate.getDate() + 1);
+    document.getElementById("check-out").valueAsDate = checkOutDate;
+    return 1;
+  }
+
+  return Math.round(Math.abs((checkOutDate - checkInDate) / oneDay)) || 1;
+}
+
+function calculateRooms(adults) {
+  return Math.ceil(adults / 2);
+}
+
+function updatePriceSummary() {
+  const roomTypeSelect = document.getElementById("room-type");
+  const adults = parseInt(document.getElementById("adults").value) || 1;
+  const children = parseInt(document.getElementById("children").value) || 0;
+  const checkIn = document.getElementById("check-in").value;
+  const checkOut = document.getElementById("check-out").value;
+
+  if (!checkIn || !checkOut || !roomTypeSelect.value) return;
+
+  const nights = calculateNights(checkIn, checkOut);
+  const roomsNeeded = calculateRooms(adults);
+  const selectedOption = roomTypeSelect.options[roomTypeSelect.selectedIndex];
+  const roomPrice = parseInt(selectedOption.dataset.price) || 0;
+  const totalCost = roomsNeeded * roomPrice * nights;
+
+  document.getElementById(
+    "room-rate"
+  ).textContent = `৳${roomPrice.toLocaleString()}`;
+  document.getElementById("nights-count").textContent = nights;
+  document.getElementById("total-rooms").textContent = roomsNeeded;
+  document.getElementById(
+    "total-cost"
+  ).textContent = `৳${totalCost.toLocaleString()}`;
+}
+
+// =========..........................
+// EVENT LISTENERS
+// =========..........................
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+  hamburger.classList.toggle("active");
+});
+
+homeLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  const activeLocation = document.querySelector(".booking-option.active")
+    ?.dataset.location;
+  sessionStorage.setItem("lastSelectedLocation", activeLocation || "dhaka");
+  showHomePage();
+});
+
+bookingLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  const lastLocation =
+    sessionStorage.getItem("lastSelectedLocation") || "dhaka";
+  showBookingPage(lastLocation);
+});
+
+bookNowBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const lastLocation =
+    sessionStorage.getItem("lastSelectedLocation") || "dhaka";
+  showBookingPage(lastLocation);
+});
+
+logo.addEventListener("click", (e) => {
+  e.preventDefault();
+  showHomePage();
+});
+
+viewButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    const location = this.closest(".hotel-card").dataset.location;
+    showBookingPage(location);
+  });
+});
+
+bookingOptions.forEach((option) => {
+  option.addEventListener("click", function () {
+    bookingOptions.forEach((opt) => opt.classList.remove("active"));
+    this.classList.add("active");
+    const location = this.dataset.location;
+    showLocationDetails(location);
+    sessionStorage.setItem("lastSelectedLocation", location);
+  });
+});
+
+confirmBookingBtn.addEventListener("click", function () {
+  const location = document.querySelector(
+    ".booking-option.active h3"
+  ).textContent;
+  const checkIn = document.getElementById("check-in").value;
+  const checkOut = document.getElementById("check-out").value;
+  const roomType = document.getElementById("room-type").value.split(" - ")[0];
+  const adults = document.getElementById("adults").value;
+  const children = document.getElementById("children").value;
+  const totalCost = document.getElementById("total-cost").textContent;
+  const nights = document.getElementById("nights-count").textContent;
+  const roomsNeeded = document.getElementById("total-rooms").textContent;
+  const roomRate = document.getElementById("room-rate").textContent;
+
+  alert(
+    `Booking confirmed!\n\nLocation: ${location}\nCheck-in: ${checkIn}\nCheck-out: ${checkOut}\nRoom Type: ${roomType}\nAdults: ${adults}\nChildren: ${children}\n\nPrice Details:\n- Room Rate: ${roomRate}/night\n- Rooms Needed: ${roomsNeeded}\n- Nights: ${nights}\n\nTotal Cost: ${totalCost}`
+  );
+});
+
+// Create hotel details elements
+Object.keys(hotels).forEach((location) => {
+  const hotel = hotels[location];
+  const hotelElement = document.createElement("div");
+  hotelElement.className = "hotel-details";
+  hotelElement.dataset.location = location;
+  hotelElement.innerHTML = `
+    <img src="${hotel.image}" alt="${hotel.name}">
+    <h3>${hotel.name}</h3>
+    <div class="rating">${hotel.rating}</div>
+    <p>${hotel.description}</p>
+    <button class="btn view-rooms-btn">View Rooms & Book</button>
+  `;
+  bookingContent.appendChild(hotelElement);
+
+  hotelElement
+    .querySelector(".view-rooms-btn")
+    .addEventListener("click", () => {
+      showBookingForm(location);
+    });
+});
+
+// =====================
+// INITIALIZATION
+// =====================
 document.addEventListener("DOMContentLoaded", function () {
-  // Set current year
   document.querySelector(".year").textContent = new Date().getFullYear();
 
-  // Initialize sliders
-  initializeSliders();
+  // Initialize sliders after ensuring jQuery and Slick are loaded
+  if (typeof jQuery !== "undefined" && typeof $.fn.slick !== "undefined") {
+    initializeSliders();
+  } else {
+    console.warn("jQuery or Slick slider not loaded - sliders won't work");
+  }
 
-  // Check initial page state
-  const lastLocation = sessionStorage.getItem("lastSelectedLocation");
+  const lastLocation =
+    sessionStorage.getItem("lastSelectedLocation") || "dhaka";
   if (
     window.location.hash === "#booking" ||
     bookingLink.classList.contains("active")

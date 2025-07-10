@@ -297,7 +297,8 @@
 .logos {
   display: flex;
   justify-content: space-around;
-  /* gap: 20px; */
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .logos img {
@@ -427,10 +428,7 @@
 .section-facility {
   padding: 9.6rem 0;
 }
-.custom-grid--2-cols {
-  /* grid-template-columns: 1fr;
-  gap: 4.8rem; */
-}
+
 .custom-grid--2-cols {
   grid-template-columns: 50% 50%;
 }
@@ -486,9 +484,7 @@
   transform: translate(-50%, -50%);
 }
 
-.step-img-box::before {
-  /* height: 60%; */
-  /* 60% of parent's width */
+/* .step-img-box::before {
   width: 60%;
   padding-bottom: 60%;
   background-color: #fdf2e9;
@@ -500,7 +496,7 @@
   padding-bottom: 55%;
   background-color: #fae5d3;
   z-index: -1;
-}
+} */
 .step-img {
   /* background-color: #333; */
   height: 300px;
@@ -519,58 +515,6 @@
   transition: transform 0.3s ease;
   max-height: 300px;
 }
-
-/* Facility Section Styles */
-
-@media (min-width: 768px) {
-  .custom-grid--2-cols {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.step-text-box {
-  padding: 2rem;
-}
-
-.step-number {
-  font-size: 8.6rem;
-  font-weight: 600;
-  color: #ddd;
-  margin-bottom: 1.2rem;
-}
-
-.step-description {
-  font-size: 1.8rem;
-  line-height: 1.8;
-}
-
-.step-description span {
-  font-size: 2.6rem;
-  font-family: "Cormorant", serif;
-  font-weight: 800;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .step-img img {
-    height: 250px;
-  }
-
-  .step-number {
-    font-size: 6.2rem;
-  }
-
-  .step-description {
-    font-size: 1.6rem;
-  }
-
-  .step-description span {
-    font-size: 2rem;
-  }
-}
-
-/* FACILITY part ending*/
-/**************************/
 
 /**************************/
 /* MARQUEE SECTION starting*/
@@ -641,13 +585,6 @@
   display: grid;
   gap: 10rem;
   grid-template-rows: repeat(2, 1fr);
-}
-
-.chef {
-  /* display: grid;
-  grid-template-columns: 1fr 1fr;
-  row-gap: 4.8rem;
-  column-gap: 8rem; */
 }
 
 .chef-textbox {
@@ -782,8 +719,6 @@
 }
 
 /* Style the front side (fallback if image is missing) */
-.flip-card-front {
-}
 
 /* Style the back side */
 .flip-card-back {

@@ -1,6 +1,6 @@
-/* ===================== */
+/* =....................===== */
 /* SMALL DEVICES (0-767px) */
-/* ===================== */
+/* ....................====== */
 @media (max-width: 767px) {
   /* Navigation adjustments for mobile */
   .navbar .container {
@@ -64,6 +64,17 @@
     font-size: 18px;
     padding: 10px 25px;
   }
+  /* .......featured in section.........  */
+  .view-btn {
+    width: 190px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .logos {
+    gap: 20px;
+    justify-content: center;
+  }
 
   /* Featured hotels grid adjustment */
   .featured-hotels {
@@ -106,6 +117,9 @@
   /* Facility section mobile adjustments */
   .section-facility {
     padding: 40px 0;
+  }
+  .section-facility .grid {
+    row-gap: 0px;
   }
 
   .custom-grid--2-cols {
@@ -163,13 +177,19 @@
   .section-flip_card .grid--4-cols {
     grid-template-columns: 1fr;
   }
-
+  .feature-text {
+    width: 65%;
+  }
   .flip-card {
     max-width: 100%;
     margin: 10px auto;
   }
 
   /* CTA section mobile layout */
+  .main-boss-booking:link,
+  .main-boss-booking:visited {
+    font-size: 6.7rem;
+  }
   .section-cta {
     padding: 30px 0;
   }
@@ -190,9 +210,18 @@
     height: 200px;
   }
 
+  .cta_button {
+    width: 91%;
+    margin: 0 auto;
+  }
+
   /* Booking CTA text size adjustment */
   .booking-cta {
     padding: 20px;
+  }
+  .booking-cta p {
+    margin: 0 auto;
+    width: 90%;
   }
 
   .main-boss-booking {
@@ -200,6 +229,9 @@
   }
 
   /* Booking page mobile layout */
+  .price-summary {
+    font-size: 14px;
+  }
   .booking-page {
     padding: 40px 0;
   }
@@ -235,7 +267,26 @@
     gap: 10px;
   }
 
+  /* Form inputs specific fixes */
+  .booking-form .form-group {
+    width: 100%;
+  }
+
+  .booking-form input[type="number"] {
+    width: 100%;
+    min-width: 100%;
+    padding: 12px;
+  }
+
+  #room-type {
+    min-width: 100%;
+    font-size: 16px;
+  }
+
   /* Footer mobile layout */
+  .social-links {
+    margin-bottom: 10px;
+  }
   .footer {
     padding: 60px 0;
   }
@@ -256,9 +307,9 @@
   }
 }
 
-/* ===================== */
+/* ===....................=== */
 /* MEDIUM DEVICES (768-991px) */
-/* ===================== */
+/* ....................====== */
 @media (min-width: 768px) and (max-width: 991px) {
   /* Navigation bar adjustments */
   .logo {
@@ -275,7 +326,15 @@
     width: 90%;
   }
 
+  /* section featuren in .......  */
+
   /* Featured hotels grid layout */
+  .view-btn {
+    width: 240px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
   .hotels-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -286,6 +345,17 @@
   }
 
   /* Facility section image sizing */
+  .section-facility .grid {
+    column-gap: 0rem;
+  }
+  .heading-tertiary {
+    margin-left: 10px;
+  }
+  .step-description {
+    font-size: 1.7rem;
+    width: 80%;
+    margin: 0 auto;
+  }
   .step-img-box {
     max-width: 100%;
   }
@@ -299,10 +369,51 @@
   .section-flip_card .grid--4-cols {
     grid-template-columns: repeat(2, 1fr);
   }
+  .section-flip_card .grid {
+    place-items: center;
+  }
 
   /* Booking options layout */
   .booking-option {
     flex: 1 0 calc(33% - 10px);
+  }
+
+  /* booking-cta part .. */
+  .booking-cta .main-boss-booking {
+    font-size: 120px;
+  }
+  .cta-form input,
+  .cta-form select {
+    width: 104%;
+  }
+
+  /* Booking form  */
+  .booking-form .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .booking-form .form-group {
+    margin-bottom: 15px;
+  }
+
+  .booking-form input[type="number"] {
+    width: 100%;
+    min-width: 74px;
+    font-size: 16px;
+  }
+
+  #room-type {
+    min-width: 100%;
+    font-size: 16px;
+  }
+
+  .booking-form .form-group:nth-child(1), /* Room type */
+  .booking-form .form-group:nth-child(2) {
+    /* Adults */
+    grid-column: span 1;
+    width: 100%;
   }
 
   /* Footer grid layout */
@@ -311,9 +422,15 @@
   }
 }
 
-/* ===================== */
+.form-group input {
+  width: 80%;
+  max-width: 100%;
+  font-size: 14px;
+}
+
+/* ======.................... */
 /* LARGE DEVICES (992-1199px) */
-/* ===================== */
+/* ====....................== */
 @media (min-width: 992px) and (max-width: 1199px) {
   /* Navigation link sizing */
   .nav-links li a {
@@ -350,6 +467,22 @@
   .section-flip_card .grid--4-cols {
     grid-template-columns: repeat(2, 1fr);
   }
+  .feature-text {
+    width: 65%;
+  }
+
+  /* Booking form fixes */
+  .booking-form .form-row {
+    gap: 20px;
+  }
+
+  .booking-form .form-group {
+    flex: 1;
+  }
+
+  #room-type {
+    min-width: 250px;
+  }
 
   /* Footer grid layout */
   .grid--footer {
@@ -357,9 +490,9 @@
   }
 }
 
-/* ===================== */
+/* ====....................== */
 /* EXTRA LARGE DEVICES (1200px and above) */
-/* ===================== */
+/* ==....................==== */
 @media (min-width: 1200px) {
   /* Navigation spacing */
   .nav-links {
@@ -375,11 +508,47 @@
   .container {
     padding: 0 20px;
   }
+
+  /* Booking form improvements */
+  #room-type {
+    min-width: 280px;
+  }
 }
 
-/* ===================== */
+/* ===....................=== */
+/* GLOBAL FORM IMPROVEMENTS */
+/* ==....................==== */
+.booking-form input,
+.booking-form select {
+  transition: all 0.3s ease;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Number input arrows */
+.booking-form input[type="number"]::-webkit-inner-spin-button,
+.booking-form input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  margin-left: 5px;
+}
+
+/* Select dropdown arrow */
+.booking-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 30px;
+}
+
+/* =....................===== */
 /* UTILITY CLASSES */
-/* ===================== */
+/*....................======= */
 
 /* Hide elements on small screens */
 .hidden-sm {
