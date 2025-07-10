@@ -1,53 +1,29 @@
-/* ...........for sm devices........  */
-@media (max-width: 576px) {
-  .form-row {
-    flex-direction: column;
-    gap: 15px;
+/* ===================== */
+/* SMALL DEVICES (0-767px) */
+/* ===================== */
+@media (max-width: 767px) {
+  /* Navigation adjustments for mobile */
+  .navbar .container {
+    padding: 0 15px;
   }
 
-  .booking-content {
-    padding: 25px;
-  }
-}
-
-/* ----------- for devices below 992px ----------- */
-@media (max-width: 992px) {
-  .interactive-booking {
-    flex-direction: column;
+  .logo {
+    width: 180px;
   }
 
-  .booking-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    flex: 1;
+  .hamburger {
+    display: block;
   }
 
-  .booking-option {
-    flex: 1;
-    min-width: 150px;
-    border-left: none;
-    border-bottom: 3px solid #eee;
-    text-align: center;
-  }
-
-  .booking-option.active {
-    border-left: none;
-    border-bottom: 3px solid var(--secondary-color);
-  }
-}
-
-/* ----------- for devices below 768px ----------- */
-@media (max-width: 768px) {
   .nav-links {
     display: none;
     position: absolute;
-    top: 60px;
+    top: 70px;
     left: 0;
     width: 100%;
-    background: var(--primary-color);
+    background: rgba(44, 62, 80, 0.95);
     flex-direction: column;
-    padding: 20px 0;
+    padding: 15px 0;
   }
 
   .nav-links.active {
@@ -56,314 +32,146 @@
 
   .nav-links li {
     margin: 10px 0;
+    text-align: center;
   }
 
-  .hamburger {
+  .nav-links li a {
+    padding: 10px;
     display: block;
-  }
-
-  .hero h1 {
-    font-size: 36px;
-  }
-
-  .hero p {
-    font-size: 18px;
-  }
-
-  .hotels-grid {
-    grid-template-columns: 1fr;
   }
 
   .nav-links li a.active::after {
     bottom: 0;
-    left: 15px;
-    width: calc(100% - 30px);
-  }
-}
-
-/* .............................new .............................new 
-....................... */
-
-/* rem and em do NOT depend on html font-size in media queries! Instead, 1rem = 1em = 16px */
-
-/**************************/
-/* BELOW 1344px (Smaller desktops) */
-/**************************/
-
-@media (max-width: 84em) {
-  .hero {
-    max-width: 120rem;
-  }
-
-  .heading-primary {
-    font-size: 4.4rem;
-  }
-
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/**************************/
-/* BELOW 1200px (Landscape Tablets) */
-/**************************/
-
-@media (max-width: 75em) {
-  html {
-    /* 9px / 16px  */
-    font-size: 56.25%;
-  }
-
-  .grid {
-    column-gap: 4.8rem;
-    row-gap: 6.4rem;
-  }
-
-  .heading-secondary {
-    font-size: 3.6rem;
-  }
-
-  .heading-tertiary {
-    font-size: 2.4rem;
-  }
-
-  .header {
-    padding: 0 3.2rem;
-  }
-
-  .main-nav-list {
-    gap: 3.2rem;
-  }
-
-  .hero {
-    gap: 4.8rem;
-  }
-
-  .testimonials-container {
-    padding: 9.6rem 3.2rem;
-  }
-}
-
-/**************************/
-/* BELOW 944px (Tablets) */
-/**************************/
-
-@media (max-width: 59em) {
-  html {
-    /* 8px / 16px = 0.5 = 50% */
-    font-size: 50%;
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 0 8rem;
-    gap: 6.4rem;
-  }
-
-  .hero-text-box,
-  .hero-img-box {
-    text-align: center;
-  }
-
-  .hero-img {
-    width: 60%;
-  }
-
-  .delivered-meals {
-    justify-content: center;
-    margin-top: 3.2rem;
-  }
-
-  .logos img {
-    height: 2.4rem;
-  }
-
-  .step-number {
-    font-size: 7.4rem;
-  }
-
-  .meal-content {
-    padding: 2.4rem 3.2rem 3.2rem 3.2rem;
-  }
-
-  .section-testimonials {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  .cta {
-    /* 3/5 = 60% + 2/5 = 40% */
-    grid-template-columns: 3fr 2fr;
-  }
-
-  .cta-form {
-    grid-template-columns: 1fr;
-  }
-
-  .btn--form {
-    margin-top: 1.2rem;
-  }
-
-  /* MOBILE NAVIGATION */
-  .btn-mobile-nav {
-    display: block;
-    z-index: 9999;
-  }
-
-  .main-nav {
-    background-color: rgba(255, 255, 255, 0.9);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(10px);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    transform: translateX(100%);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s ease-in;
-
-    /* Hide navigation */
-    /* Allows NO transitions at all */
-    /* display: none; */
-
-    /* 1) Hide it visually */
-    opacity: 0;
-
-    /* 2) Make it unaccessible to mouse and keyboard */
-    pointer-events: none;
-
-    /* 3) Hide it from screen readers */
-    visibility: hidden;
-  }
-
-  .nav-open .main-nav {
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
-    transform: translateX(0);
-  }
-
-  .nav-open .icon-mobile-nav[name="close-outline"] {
-    display: block;
-  }
-
-  .nav-open .icon-mobile-nav[name="menu-outline"] {
-    display: none;
-  }
-
-  .main-nav-list {
-    flex-direction: column;
-    gap: 4.8rem;
-  }
-
-  .main-nav-link:link,
-  .main-nav-link:visited {
-    font-size: 3rem;
-  }
-}
-
-/**************************/
-/* BELOW 704px (Smaller tablets) */
-/**************************/
-
-@media (max-width: 44em) {
-  .grid--3-cols,
-  .grid--4-cols {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .diets {
-    grid-column: 1 / -1;
-    justify-self: center;
-  }
-
-  .heading-secondary {
-    margin-bottom: 4.8rem;
-  }
-
-  .pricing-plan {
-    width: 100%;
-  }
-
-  .grid--footer {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  .logo-col,
-  .address-col {
-    grid-column: span 3;
-  }
-
-  .nav-col {
-    grid-row: 1;
-    grid-column: span 2;
-    margin-bottom: 3.2rem;
-  }
-}
-
-/**************************/
-/* BELOW 544px (Phones) */
-/**************************/
-
-@media (max-width: 34em) {
-  .grid {
-    row-gap: 4.8rem;
-  }
-
-  .grid--2-cols,
-  .grid--3-cols,
-  .grid--4-cols {
-    grid-template-columns: 1fr;
-  }
-
-  .btn,
-  .btn:link,
-  .btn:visited {
-    padding: 2.4rem 1.6rem;
-  }
-
-  .section-hero {
-    padding: 2.4rem 0 6.4rem 0;
-  }
-
-  .hero {
-    padding: 0 3.2rem;
-  }
-
-  .hero-img {
+    left: 50%;
+    transform: translateX(-50%);
     width: 80%;
   }
 
-  .logos img {
-    height: 1.2rem;
+  /* Hero section mobile optimization */
+  .hero h1 {
+    font-size: 32px;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 
-  .step-img-box:nth-child(2) {
-    grid-row: 1;
+  .hero p {
+    font-size: 16px;
+    width: 90%;
+    margin-bottom: 20px;
   }
 
-  .step-img-box:nth-child(6) {
-    grid-row: 5;
+  .Banner_btn {
+    font-size: 18px;
+    padding: 10px 25px;
   }
 
-  .step-img-box {
-    transform: translateY(2.4rem);
+  /* Featured hotels grid adjustment */
+  .featured-hotels {
+    padding: 40px 0;
   }
 
-  .testimonials {
+  .featured-hotels h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* History section mobile layout */
+  #section-history .grid--2-cols {
     grid-template-columns: 1fr;
   }
 
+  .history-text-box {
+    padding: 20px;
+  }
+
+  .history-img-box {
+    order: -1;
+    padding: 20px;
+  }
+
+  .heading-secondary {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .history-description {
+    font-size: 16px;
+  }
+
+  /* Facility section mobile adjustments */
+  .section-facility {
+    padding: 40px 0;
+  }
+
+  .custom-grid--2-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .step-img-box {
+    order: -1;
+    margin-bottom: 20px;
+  }
+
+  .step-text-box {
+    padding: 15px;
+  }
+
+  .step-number {
+    font-size: 60px;
+  }
+
+  .step-description {
+    font-size: 16px;
+  }
+
+  .step-description span {
+    font-size: 20px;
+  }
+
+  /* Marquee text size reduction */
+  .section-marquee {
+    padding: 40px 0;
+  }
+
+  .nav-ticker {
+    font-size: 18px;
+    padding: 20px 10px;
+  }
+
+  /* Gallery layout for mobile */
+  .section-chef {
+    grid-template-columns: 1fr;
+  }
+
+  .chef-container {
+    padding: 30px;
+    gap: 30px;
+  }
+
   .gallery {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+
+  /* Flip cards single column layout */
+  .section-flip_card .grid--4-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .flip-card {
+    max-width: 100%;
+    margin: 10px auto;
+  }
+
+  /* CTA section mobile layout */
+  .section-cta {
+    padding: 30px 0;
   }
 
   .cta {
@@ -371,123 +179,226 @@
   }
 
   .cta-text-box {
-    padding: 3.2rem;
+    padding: 20px;
+  }
+
+  .cta-form {
+    grid-template-columns: 1fr;
   }
 
   .cta-img-box {
-    height: 32rem;
-    grid-row: 1;
+    height: 200px;
+  }
+
+  /* Booking CTA text size adjustment */
+  .booking-cta {
+    padding: 20px;
+  }
+
+  .main-boss-booking {
+    font-size: 80px;
+  }
+
+  /* Booking page mobile layout */
+  .booking-page {
+    padding: 40px 0;
+  }
+
+  .booking-page h2 {
+    font-size: 24px;
+    margin-top: 60px;
+    margin-bottom: 20px;
+  }
+
+  .interactive-booking {
+    flex-direction: column;
+  }
+
+  .booking-options {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .booking-option {
+    flex: 1 0 calc(50% - 10px);
+    padding: 15px;
+    margin-bottom: 5px;
+  }
+
+  .booking-content {
+    padding: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Footer mobile layout */
+  .footer {
+    padding: 60px 0;
+  }
+
+  .grid--footer {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .logo-col,
+  .address-col,
+  .nav-col {
+    text-align: center;
+  }
+
+  .social-links {
+    justify-content: center;
   }
 }
 
-/* 
-- Font sizes (px)
-10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+/* ===================== */
+/* MEDIUM DEVICES (768-991px) */
+/* ===================== */
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Navigation bar adjustments */
+  .logo {
+    width: 200px;
+  }
 
-- Spacing system (px)
-2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
-*/
+  /* Hero section typography */
+  .hero h1 {
+    font-size: 40px;
+  }
 
-/**************************/
-/* Fixing Safari flexbox gap */
-/**************************/
+  .hero p {
+    font-size: 18px;
+    width: 90%;
+  }
 
-.no-flexbox-gap .main-nav-list li:not(:last-child) {
-  margin-right: 4.8rem;
-}
+  /* Featured hotels grid layout */
+  .hotels-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-.no-flexbox-gap .list-item:not(:last-child) {
-  margin-bottom: 1.6rem;
-}
+  /* History section layout */
+  #section-history .grid--2-cols {
+    grid-template-columns: 1fr;
+  }
 
-.no-flexbox-gap .list-icon:not(:last-child) {
-  margin-right: 1.6rem;
-}
+  /* Facility section image sizing */
+  .step-img-box {
+    max-width: 100%;
+  }
 
-.no-flexbox-gap .delivered-faces {
-  margin-right: 1.6rem;
-}
+  /* Gallery layout */
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-.no-flexbox-gap .meal-attribute:not(:last-child) {
-  margin-bottom: 2rem;
-}
+  /* Flip cards grid layout */
+  .section-flip_card .grid--4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-.no-flexbox-gap .meal-icon {
-  margin-right: 1.6rem;
-}
+  /* Booking options layout */
+  .booking-option {
+    flex: 1 0 calc(33% - 10px);
+  }
 
-.no-flexbox-gap .footer-row div:not(:last-child) {
-  margin-right: 6.4rem;
-}
-
-.no-flexbox-gap .social-links li:not(:last-child) {
-  margin-right: 2.4rem;
-}
-
-.no-flexbox-gap .footer-nav li:not(:last-child) {
-  margin-bottom: 2.4rem;
-}
-
-@media (max-width: 75em) {
-  .no-flexbox-gap .main-nav-list li:not(:last-child) {
-    margin-right: 3.2rem;
+  /* Footer grid layout */
+  .grid--footer {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 59em) {
-  .no-flexbox-gap .main-nav-list li:not(:last-child) {
-    margin-right: 0;
-    margin-bottom: 4.8rem;
+/* ===================== */
+/* LARGE DEVICES (992-1199px) */
+/* ===================== */
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Navigation link sizing */
+  .nav-links li a {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+
+  /* Hero section typography */
+  .hero h1 {
+    font-size: 48px;
+  }
+
+  /* Featured hotels grid */
+  .hotels-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* History section padding */
+  .history-text-box {
+    padding: 30px;
+  }
+
+  /* Facility section layout */
+  .custom-grid--2-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .step-img-box {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  /* Flip cards grid */
+  .section-flip_card .grid--4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer grid layout */
+  .grid--footer {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
-/* Facility Section Styles */
+
+/* ===================== */
+/* EXTRA LARGE DEVICES (1200px and above) */
+/* ===================== */
+@media (min-width: 1200px) {
+  /* Navigation spacing */
+  .nav-links {
+    gap: 15px;
+  }
+
+  /* Facility section grid layout */
+  .custom-grid--2-cols {
+    grid-template-columns: 50% 50%;
+  }
+
+  /* Container padding for large screens */
+  .container {
+    padding: 0 20px;
+  }
+}
+
+/* ===================== */
+/* UTILITY CLASSES */
+/* ===================== */
+
+/* Hide elements on small screens */
+.hidden-sm {
+  display: none;
+}
 
 @media (min-width: 768px) {
-  .custom-grid--2-cols {
-    grid-template-columns: 1fr 1fr;
+  .hidden-sm {
+    display: block;
+  }
+
+  .visible-sm {
+    display: none;
   }
 }
 
-.step-text-box {
-  padding: 2rem;
-}
-
-.step-number {
-  font-size: 8.6rem;
-  font-weight: 600;
-  color: #ddd;
-  margin-bottom: 1.2rem;
-}
-
-.step-description {
-  font-size: 1.8rem;
-  line-height: 1.8;
-}
-
-.step-description span {
-  font-size: 2.6rem;
-  font-family: "Cormorant", serif;
-  font-weight: 800;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .step-img img {
-    height: 250px;
-  }
-
-  .step-number {
-    font-size: 6.2rem;
-  }
-
-  .step-description {
-    font-size: 1.6rem;
-  }
-
-  .step-description span {
-    font-size: 2rem;
+/* Adjust container padding for very small screens */
+@media (max-width: 400px) {
+  .container {
+    padding: 0 10px;
   }
 }
-
-/* FACILITY part ending*/
-/**************************/
