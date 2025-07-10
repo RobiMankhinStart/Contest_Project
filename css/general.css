@@ -56,7 +56,13 @@ Medium: 11px
 - Spacing system (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
 */
+html {
+  scroll-behavior: smooth;
+}
 
+section {
+  scroll-margin-top: 100px;
+}
 * {
   padding: 0;
   margin: 0;
@@ -94,17 +100,11 @@ img {
 /**************************/
 /* GENRAL REUSABLE COMPONENTS */
 /**************************/
-/* .container {
-  width: 90%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 20px;
-} */
 
 .container {
   /* 1140px */
   max-width: 120rem;
-  padding: 0 3.2rem;
+  padding: 0 1rem;
   margin: 0 auto;
 }
 
@@ -200,47 +200,8 @@ img {
   font-family: inherit;
 
   /* Put transition on original "state" */
-  /* transition: background-color 0.3s; */
+  transition: background-color 0.3s;
   transition: all 0.3s;
-}
-
-.btn--full:link,
-.btn--full:visited {
-  background-color: #0b1320;
-  color: #fff;
-}
-
-.btn--full:hover,
-.btn--full:active {
-  background-color: #3c424d;
-}
-
-.btn--outline:link,
-.btn--outline:visited {
-  background-color: #fff;
-  color: #555;
-}
-
-.btn--outline:hover,
-.btn--outline:active {
-  background-color: #fdf2e9;
-
-  /* border: 3px solid #fff; */
-
-  /* Trick to add border inside */
-  box-shadow: inset 0 0 0 3px #fff;
-}
-
-.btn--form {
-  background-color: #45260a;
-  color: #fdf2e9;
-  align-self: end;
-  padding: 1.2rem;
-}
-
-.btn--form:hover {
-  background-color: #fff;
-  color: #555;
 }
 
 .link:link,
@@ -280,12 +241,12 @@ img {
   color: #e67e22;
 }
 
-*:focus {
+/* *:focus {
   outline: none;
-  /* outline: 4px dotted #e67e22; */
-  /* outline-offset: 8px; */
+  outline: 4px dotted #e67e22;
+  outline-offset: 8px;
   box-shadow: 0 0 0 0.8rem rgba(230, 125, 34, 0.5);
-}
+} */
 
 .marquess-estate-font {
   font-size: 2.6rem;

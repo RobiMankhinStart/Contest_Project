@@ -15,13 +15,17 @@ const bookingContent = document.querySelector(
 const bookingFormContainer = document.getElementById("booking-form-container");
 const viewButtons = document.querySelectorAll(".view-btn");
 const confirmBookingBtn = document.getElementById("confirm-booking");
+const allSections = document.querySelectorAll("section");
+const allNavItems = document.querySelectorAll(".nav-links li");
+const sectionLinks = document.querySelectorAll(
+  '.nav-links a[href^="#"]:not(#home-link):not(#booking-link)'
+);
 
-// Temporary Hotel Data Gonna fix later
+// Temporary Hotel Data
 const hotels = {
   dhaka: {
     name: "RoyalStay Dhaka",
-    description:
-      "Located in the heart of the capital city, our Dhaka property offers luxury accommodations with stunning city views. Enjoy our world-class amenities including a rooftop pool, spa, and multiple dining options.",
+    description: "Located in the heart of the capital city...",
     image: "./Images/Hotel/8.jpg",
     rating: "★★★★☆",
     rooms: [
@@ -33,8 +37,7 @@ const hotels = {
   },
   chittagong: {
     name: "RoyalStay Chittagong",
-    description:
-      "Overlooking the Bay of Bengal, our Chittagong hotel combines coastal charm with modern luxury. Relax in our beachfront rooms and enjoy fresh seafood at our signature restaurant.",
+    description: "Overlooking the Bay of Bengal...",
     image: "./Images/Hotel/15.jpg",
     rating: "★★★★★",
     rooms: [
@@ -46,8 +49,7 @@ const hotels = {
   },
   sylhet: {
     name: "RoyalStay Sylhet",
-    description:
-      "Nestled in the lush tea gardens of Sylhet, our resort offers a tranquil escape. Experience the beauty of nature while enjoying our premium services and authentic local cuisine.",
+    description: "Nestled in the lush tea gardens...",
     image: "./Images/Hotel/5.jpg",
     rating: "★★★★☆",
     rooms: [
@@ -58,8 +60,7 @@ const hotels = {
   },
   "cox's bazar": {
     name: "RoyalStay Cox's Bazar",
-    description:
-      "Steps away from the world's longest beach, our Cox's Bazar property offers breathtaking ocean views. Enjoy water sports, spa treatments, and romantic beachside dining.",
+    description: "Steps away from the world's longest beach...",
     image: "./Images/Hotel/6.jpg",
     rating: "★★★★★",
     rooms: [
@@ -70,143 +71,89 @@ const hotels = {
   },
 };
 
-// Mobile menu toggle
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
-  hamburger.classList.toggle("active");
-});
+// =====================
+// NAVIGATION FUNCTIONS
+// =====================
 
-// To show booking page with selected location
+function hideAllSections() {
+  allSections.forEach((section) => {
+    if (section.id !== "booking-page") {
+      section.style.display = "none";
+    }
+  });
+}
+
+function showAllSections() {
+  allSections.forEach((section) => {
+    section.style.display = "";
+  });
+  bookingPage.style.display = "none";
+  heroSection.style.display = "flex";
+  featuredHotels.style.display = "block";
+}
+
+function hideSectionNavLinks() {
+  sectionLinks.forEach((link) => {
+    link.parentElement.style.display = "none";
+  });
+}
+
+function showSectionNavLinks() {
+  sectionLinks.forEach((link) => {
+    link.parentElement.style.display = "";
+  });
+}
+
 function showBookingPage(selectedLocation = null) {
-  heroSection.style.display = "none";
-  featuredHotels.style.display = "none";
+  hideAllSections();
   bookingPage.style.display = "block";
   window.scrollTo(0, 50);
 
-  // Updating active nav link
+  // Update active nav links
   document.querySelectorAll(".nav-links li a").forEach((link) => {
     link.classList.remove("active");
   });
   bookingLink.classList.add("active");
+  hideSectionNavLinks();
 
-  // Initializing booking page with selection
+  // Initialize booking page
   initializeBookingPage(selectedLocation);
 }
 
-// To show home page
 function showHomePage() {
-  heroSection.style.display = "flex";
-  featuredHotels.style.display = "block";
-  bookingPage.style.display = "none";
+  showAllSections();
   window.scrollTo(0, 0);
+  showSectionNavLinks();
 
-  // Updating active nav link
+  // Update active nav links
   document.querySelectorAll(".nav-links li a").forEach((link) => {
     link.classList.remove("active");
   });
   homeLink.classList.add("active");
 }
 
-// Navigation event listeners
-homeLink.addEventListener("click", function () {
-  // Storing current selection before leaving
-  const activeLocation = document.querySelector(".booking-option.active")
-    ?.dataset.location;
-  sessionStorage.setItem("lastSelectedLocation", activeLocation);
-  showHomePage();
-  return false;
-});
+// =====================
+// BOOKING PAGE FUNCTIONS
+// =====================
 
-bookingLink.addEventListener("click", function () {
-  const lastLocation = sessionStorage.getItem("lastSelectedLocation");
-  showBookingPage(lastLocation);
-  return false;
-});
-
-bookNowBtn.addEventListener("click", function () {
-  const lastLocation = sessionStorage.getItem("lastSelectedLocation");
-  showBookingPage(lastLocation);
-  return false;
-});
-
-logo.addEventListener("click", function () {
-  showHomePage();
-  return false;
-});
-
-// View buttons on hotel cards
-viewButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    const location = this.closest(".hotel-card").dataset.location;
-    showBookingPage(location);
-  });
-});
-
-// Creating hotel details elements for each location
-Object.keys(hotels).forEach((location) => {
-  const hotel = hotels[location];
-  const hotelElement = document.createElement("div");
-  hotelElement.className = "hotel-details";
-  hotelElement.dataset.location = location;
-  hotelElement.innerHTML = `
-    <img src="${hotel.image}" alt="${hotel.name}">
-    <h3>${hotel.name}</h3>
-    <div class="rating">${hotel.rating}</div>
-    <p>${hotel.description}</p>
-    <button class="btn view-rooms-btn">View Rooms & Book</button>
-  `;
-  bookingContent.appendChild(hotelElement);
-
-  // Adding click handler for view rooms button
-  hotelElement
-    .querySelector(".view-rooms-btn")
-    .addEventListener("click", function () {
-      showBookingForm(location);
-    });
-});
-
-// Initializing booking page with selection
 function initializeBookingPage(selectedLocation = null) {
   const defaultLocation = selectedLocation || "dhaka";
 
-  // Removing active class from all options
-  document.querySelectorAll(".booking-option").forEach((option) => {
+  bookingOptions.forEach((option) => {
     option.classList.remove("active");
+    if (option.dataset.location === defaultLocation) {
+      option.classList.add("active");
+    }
   });
-
-  // Setting active class on selected/default option
-  document
-    .querySelector(`.booking-option[data-location="${defaultLocation}"]`)
-    .classList.add("active");
 
   showLocationDetails(defaultLocation);
 }
 
-// Booking option click handler
-bookingOptions.forEach((option) => {
-  option.addEventListener("click", function () {
-    // Removing active class from all options
-    bookingOptions.forEach((opt) => opt.classList.remove("active"));
-
-    // Adding active class to clicked option
-    this.classList.add("active");
-
-    const location = this.dataset.location;
-    showLocationDetails(location);
-
-    // Storing selection
-    sessionStorage.setItem("lastSelectedLocation", location);
-  });
-});
-
-// To show location details
 function showLocationDetails(location) {
-  // Hiding all hotel details
   document.querySelectorAll(".hotel-details").forEach((detail) => {
     detail.classList.remove("active");
   });
 
-  // Showing selected hotel details
   const selectedHotel = document.querySelector(
     `.hotel-details[data-location="${location}"]`
   );
@@ -214,24 +161,17 @@ function showLocationDetails(location) {
     selectedHotel.classList.add("active");
   }
 
-  // Hiding booking form by default
   bookingFormContainer.style.display = "none";
-
-  // Showing default content if no hotel selected
   document.querySelector(".default-content").style.display = selectedHotel
     ? "none"
     : "block";
 }
 
-// To show booking form with calculations
 function showBookingForm(location) {
   const hotel = hotels[location];
   const roomTypeSelect = document.getElementById("room-type");
 
-  // Clearing previous options
   roomTypeSelect.innerHTML = "";
-
-  // Adding new options
   hotel.rooms.forEach((room) => {
     const option = document.createElement("option");
     option.value = `${room.type} - ৳${room.price.toLocaleString()}`;
@@ -240,7 +180,6 @@ function showBookingForm(location) {
     roomTypeSelect.appendChild(option);
   });
 
-  // Setting default dates (today and tomorrow)
   const today = new Date();
   const tomorrow = new Date();
   tomorrow.setDate(today.getDate() + 1);
@@ -248,47 +187,28 @@ function showBookingForm(location) {
   document.getElementById("check-in").valueAsDate = today;
   document.getElementById("check-out").valueAsDate = tomorrow;
 
-  // Showing the form
   bookingFormContainer.style.display = "block";
 
-  // Adding event listeners for dynamic calculation
-  document
-    .getElementById("room-type")
-    .addEventListener("change", updatePriceSummary);
-  document
-    .getElementById("adults")
-    .addEventListener("change", updatePriceSummary);
-  document
-    .getElementById("children")
-    .addEventListener("change", updatePriceSummary);
-  document
-    .getElementById("check-in")
-    .addEventListener("change", updatePriceSummary);
-  document
-    .getElementById("check-out")
-    .addEventListener("change", updatePriceSummary);
+  // Add event listeners
+  ["room-type", "adults", "children", "check-in", "check-out"].forEach((id) => {
+    document.getElementById(id).addEventListener("change", updatePriceSummary);
+  });
 
-  // Initial calculation
   updatePriceSummary();
-
-  // Scrolling to form
   bookingFormContainer.scrollIntoView({ behavior: "smooth" });
 }
 
-// Calculating nights between dates
 function calculateNights(checkIn, checkOut) {
   const oneDay = 24 * 60 * 60 * 1000;
-  const firstDate = new Date(checkIn);
-  const secondDate = new Date(checkOut);
-  return Math.round(Math.abs((firstDate - secondDate) / oneDay));
+  return Math.round(
+    Math.abs((new Date(checkIn) - new Date(checkOut)) / oneDay)
+  );
 }
 
-// Calculating rooms needed based on adults
 function calculateRooms(adults) {
   return Math.ceil(adults / 2);
 }
 
-// Updating price summary display
 function updatePriceSummary() {
   const roomTypeSelect = document.getElementById("room-type");
   const adults = parseInt(document.getElementById("adults").value) || 1;
@@ -302,7 +222,6 @@ function updatePriceSummary() {
   const roomsNeeded = calculateRooms(adults);
   const roomPrice =
     parseInt(roomTypeSelect.value.split("৳")[1].replace(/,/g, "")) || 0;
-
   const totalCost = roomsNeeded * roomPrice * nights;
 
   document.getElementById(
@@ -314,6 +233,59 @@ function updatePriceSummary() {
     "total-cost"
   ).textContent = `৳${totalCost.toLocaleString()}`;
 }
+
+// =====================
+// EVENT LISTENERS
+// =====================
+
+// Mobile menu toggle
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+  hamburger.classList.toggle("active");
+});
+
+// Navigation links
+homeLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  const activeLocation = document.querySelector(".booking-option.active")
+    ?.dataset.location;
+  sessionStorage.setItem("lastSelectedLocation", activeLocation);
+  showHomePage();
+});
+
+bookingLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  showBookingPage(sessionStorage.getItem("lastSelectedLocation"));
+});
+
+bookNowBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  showBookingPage(sessionStorage.getItem("lastSelectedLocation"));
+});
+
+logo.addEventListener("click", (e) => {
+  e.preventDefault();
+  showHomePage();
+});
+
+// Hotel card view buttons
+viewButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    const location = this.closest(".hotel-card").dataset.location;
+    showBookingPage(location);
+  });
+});
+
+// Booking options
+bookingOptions.forEach((option) => {
+  option.addEventListener("click", function () {
+    bookingOptions.forEach((opt) => opt.classList.remove("active"));
+    this.classList.add("active");
+    const location = this.dataset.location;
+    showLocationDetails(location);
+    sessionStorage.setItem("lastSelectedLocation", location);
+  });
+});
 
 // Confirm booking button
 confirmBookingBtn.addEventListener("click", function () {
@@ -331,208 +303,122 @@ confirmBookingBtn.addEventListener("click", function () {
   const roomRate = document.getElementById("room-rate").textContent;
 
   alert(
-    `Booking confirmed!\n\n` +
-      `Location: ${location}\n` +
-      `Check-in: ${checkIn}\n` +
-      `Check-out: ${checkOut}\n` +
-      `Room Type: ${roomType}\n` +
-      `Adults: ${adults}\n` +
-      `Children: ${children}\n\n` +
-      `Price Details:\n` +
-      `- Room Rate: ${roomRate}/night\n` +
-      `- Rooms Needed: ${roomsNeeded}\n` +
-      `- Nights: ${nights}\n\n` +
-      `Total Cost: ${totalCost}`
+    `Booking confirmed!\n\nLocation: ${location}\nCheck-in: ${checkIn}\nCheck-out: ${checkOut}\nRoom Type: ${roomType}\nAdults: ${adults}\nChildren: ${children}\n\nPrice Details:\n- Room Rate: ${roomRate}/night\n- Rooms Needed: ${roomsNeeded}\n- Nights: ${nights}\n\nTotal Cost: ${totalCost}`
   );
 });
 
-// Initial page load
+// Create hotel details elements
+Object.keys(hotels).forEach((location) => {
+  const hotel = hotels[location];
+  const hotelElement = document.createElement("div");
+  hotelElement.className = "hotel-details";
+  hotelElement.dataset.location = location;
+  hotelElement.innerHTML = `
+    <img src="${hotel.image}" alt="${hotel.name}">
+    <h3>${hotel.name}</h3>
+    <div class="rating">${hotel.rating}</div>
+    <p>${hotel.description}</p>
+    <button class="btn view-rooms-btn">View Rooms & Book</button>
+  `;
+  bookingContent.appendChild(hotelElement);
+
+  hotelElement
+    .querySelector(".view-rooms-btn")
+    .addEventListener("click", () => {
+      showBookingForm(location);
+    });
+});
+
+// =====================
+// INITIALIZATION
+// =====================
+
+// Initialize Slick sliders
+function initializeSliders() {
+  if (typeof $.fn.slick !== "function") return;
+
+  $(".leisure").slick({
+    dots: false,
+    infinite: true,
+    speed: 500,
+    fade: true,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: false,
+    cssEase: "linear",
+    adaptiveHeight: true,
+  });
+
+  $(".wellness").slick({
+    dots: false,
+    infinite: true,
+    speed: 500,
+    fade: true,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2400,
+    pauseOnHover: false,
+    cssEase: "linear",
+    adaptiveHeight: true,
+  });
+
+  $(".culinary").slick({
+    dots: false,
+    infinite: true,
+    speed: 500,
+    fade: true,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2800,
+    pauseOnHover: false,
+    cssEase: "linear",
+    adaptiveHeight: true,
+  });
+
+  $(".butler-services").slick({
+    dots: false,
+    infinite: true,
+    speed: 500,
+    fade: true,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 3200,
+    pauseOnHover: false,
+    cssEase: "linear",
+    adaptiveHeight: true,
+  });
+
+  $(".event-venues").slick({
+    dots: false,
+    infinite: true,
+    speed: 500,
+    fade: true,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 3600,
+    pauseOnHover: false,
+    cssEase: "linear",
+    adaptiveHeight: true,
+  });
+}
+
+// On DOM content loaded
 document.addEventListener("DOMContentLoaded", function () {
+  // Set current year
+  document.querySelector(".year").textContent = new Date().getFullYear();
+
+  // Initialize sliders
+  initializeSliders();
+
+  // Check initial page state
   const lastLocation = sessionStorage.getItem("lastSelectedLocation");
   if (
     window.location.hash === "#booking" ||
-    // document.querySelector(".nav-booking").classList.contains("active")
-    (bookingLink && bookingLink.classList.contains("active"))
+    bookingLink.classList.contains("active")
   ) {
     showBookingPage(lastLocation);
-  }
-});
-
-// .......................................
-// .....................slick Slider ...........
-///////////////////////////////////////////////////////////
-// Initialize Slick Sliders when document is ready
-$(document).ready(function () {
-  // Function to initialize all sliders
-  function initializeSliders() {
-    $(".leisure").slick({
-      dots: false,
-      infinite: true,
-      speed: 500,
-      fade: true,
-      arrows: false,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      pauseOnHover: false,
-      cssEase: "linear",
-      adaptiveHeight: true,
-    });
-
-    $(".wellness").slick({
-      dots: false,
-      infinite: true,
-      speed: 500,
-      fade: true,
-      arrows: false,
-      autoplay: true,
-      autoplaySpeed: 2400,
-      pauseOnHover: false,
-      cssEase: "linear",
-      adaptiveHeight: true,
-    });
-
-    $(".culinary").slick({
-      dots: false,
-      infinite: true,
-      speed: 500,
-      fade: true,
-      arrows: false,
-      autoplay: true,
-      autoplaySpeed: 2800,
-      pauseOnHover: false,
-      cssEase: "linear",
-      adaptiveHeight: true,
-    });
-
-    $(".butler-services").slick({
-      dots: false,
-      infinite: true,
-      speed: 500,
-      fade: true,
-      arrows: false,
-      autoplay: true,
-      autoplaySpeed: 3200,
-      pauseOnHover: false,
-      cssEase: "linear",
-      adaptiveHeight: true,
-    });
-
-    $(".event-venues").slick({
-      dots: false,
-      infinite: true,
-      speed: 500,
-      fade: true,
-      arrows: false,
-      autoplay: true,
-      autoplaySpeed: 3600,
-      pauseOnHover: false,
-      cssEase: "linear",
-      adaptiveHeight: true,
-    });
-  }
-  console.log($(".leisure img").attr("src"));
-  // Check if Slick is loaded
-  if (typeof $.fn.slick === "function") {
-    initializeSliders();
   } else {
-    // Load Slick from CDN if not available
-    $.getScript(
-      "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-    )
-      .done(initializeSliders)
-      .fail(function () {
-        console.error("Failed to load Slick slider");
-      });
+    showHomePage();
   }
 });
-
-// Set current year
-const yearEl = document.querySelector(".year");
-const currentYear = new Date().getFullYear();
-yearEl.textContent = currentYear;
-
-///////////////////////////////////////////////////////////
-// Make mobile navigation work
-
-const btnNavEl = document.querySelector(".btn-mobile-nav");
-const headerEl = document.querySelector(".header");
-
-btnNavEl.addEventListener("click", function () {
-  headerEl.classList.toggle("nav-open");
-});
-
-///////////////////////////////////////////////////////////
-// Smooth scrolling animation
-
-const allLinks = document.querySelectorAll("a:link");
-
-allLinks.forEach(function (link) {
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    const href = link.getAttribute("href");
-
-    // Scroll back to top
-    if (href === "#")
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-
-    // Scroll to other links
-    if (href !== "#" && href.startsWith("#")) {
-      const sectionEl = document.querySelector(href);
-      sectionEl.scrollIntoView({ behavior: "smooth" });
-    }
-
-    // Close mobile naviagtion
-    if (link.classList.contains("main-nav-link"))
-      headerEl.classList.toggle("nav-open");
-  });
-});
-
-///////////////////////////////////////////////////////////
-// Sticky navigation
-
-const sectionHeroEl = document.querySelector(".section-hero");
-
-const obs = new IntersectionObserver(
-  function (entries) {
-    const ent = entries[0];
-    console.log(ent);
-
-    if (ent.isIntersecting === false) {
-      document.body.classList.add("sticky");
-    }
-
-    if (ent.isIntersecting === true) {
-      document.body.classList.remove("sticky");
-    }
-  },
-  {
-    // In the viewport
-    root: null,
-    threshold: 0,
-    rootMargin: "-80px",
-  }
-);
-obs.observe(sectionHeroEl);
-
-///////////////////////////////////////////////////////////
-// Fixing flexbox gap property missing in some Safari versions
-function checkFlexGap() {
-  var flex = document.createElement("div");
-  flex.style.display = "flex";
-  flex.style.flexDirection = "column";
-  flex.style.rowGap = "1px";
-
-  flex.appendChild(document.createElement("div"));
-  flex.appendChild(document.createElement("div"));
-
-  document.body.appendChild(flex);
-  var isSupported = flex.scrollHeight === 1;
-  flex.parentNode.removeChild(flex);
-  console.log(isSupported);
-
-  if (!isSupported) document.body.classList.add("no-flexbox-gap");
-}
-checkFlexGap();

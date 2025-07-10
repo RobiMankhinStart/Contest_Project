@@ -80,10 +80,15 @@
 }
 .logo {
   width: 260px;
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
 }
 .nav-links {
   display: flex;
   list-style: none;
+  gap: 5px;
 }
 .nav-links li a {
   font-family: "Poppins", sans-serif;
@@ -92,7 +97,9 @@
   color: white;
   text-decoration: none;
   padding: 10px 12px;
-  margin: 0 5px;
+  /* margin: 0 5px; */
+  /* background: #000; */
+  border-radius: 8px;
   transition: all 0.3s ease;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -112,6 +119,7 @@
   height: 2px;
   background-color: var(--accent-color);
 }
+
 .hamburger {
   display: none;
   cursor: pointer;
@@ -131,12 +139,12 @@
 
   position: relative;
   padding: 12px 35px;
-  background: #ffbd5983;
-  font-size: 17px;
+  background: #ffbd596c;
+  font-size: 21px;
   font-weight: 500;
   color: white;
   font-weight: 600;
-  border: 3px solid #ffbd59b4;
+  border: 1px solid white;
   border-radius: 8px;
   box-shadow: 0 0 0 var(--Brand-color);
   transition: all 0.3s ease-in-out;
@@ -298,11 +306,59 @@
   filter: brightness(0);
   opacity: 50%;
 }
-
 /* FEATURED IN SECTION ending*/
 /**************************/
 
-/* ..........history part starting.......... */
+/* .......... featured hotel part starting ............ */
+.featured-hotels {
+  padding: 80px 0;
+  background-color: var(--lightBG_color_one);
+}
+.featured-hotels h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 32px;
+  color: var(--dark-color);
+}
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+.hotel-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.hotel-card:hover {
+  transform: translateY(-10px);
+}
+.hotel-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.hotel-card h3 {
+  padding: 15px 15px 5px;
+  font-size: 20px;
+}
+.hotel-card p {
+  padding: 0 15px 10px;
+  color: var(--text-light);
+}
+.rating {
+  padding: 0 15px 15px;
+  color: #f1c40f;
+}
+.view-btn {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 0 15px 15px;
+  text-align: center;
+  /* .......... featured hotel part starting ............ */
+}
 
 /**************************/
 /* HISTORY SECTION */
@@ -517,90 +573,6 @@
 /**************************/
 
 /**************************/
-/* Flip Cards Feature Starts */
-/**************************/
-.feature {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.feature-icon {
-  color: #e67e22;
-  height: 3.2rem;
-  width: 3.2rem;
-  background-color: #fdf2e9;
-  margin-bottom: 3.2rem;
-  padding: 1.6rem;
-  border-radius: 50%;
-}
-
-.feature-title {
-  font-size: 2.4rem;
-  color: #333;
-  font-weight: 700;
-  margin-bottom: 1.6rem;
-}
-
-.feature-text {
-  font-size: 1.8rem;
-  line-height: 1.8;
-  text-align: center;
-}
-
-.feature-img {
-  border-radius: 1rem;
-  width: 26rem;
-  height: 26rem;
-}
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
-
-.flip-card {
-  background-color: transparent;
-  width: 23.7rem;
-  height: 23.7rem;
-  perspective: 100rem; /* 3D effect */
-}
-
-/* This container is needed to position the front and back side */
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-}
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-}
-
-/* Style the back side */
-.flip-card-back {
-  transform: rotateY(180deg);
-}
-
-/**************************/
-/* Flip Cards Feature Ends */
-/**************************/
-
-/**************************/
 /* MARQUEE SECTION starting*/
 /**************************/
 .section-marquee {
@@ -730,56 +702,372 @@
 /* gallery part ending */
 /**************************/
 
-/* ..................
-.........Featured Hotels .........*/
-.featured-hotels {
-  padding: 80px 0;
-  background-color: var(--lightBG_color_one);
-}
-.featured-hotels h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 32px;
-  color: var(--dark-color);
-}
-.hotels-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-}
-.hotel-card {
-  background: white;
-  border-radius: 10px;
+/**************************/
+/* Flip Cards Feature Starts */
+/**************************/
+.section-flip_card {
+  padding-top: 30px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
 }
-.hotel-card:hover {
-  transform: translateY(-10px);
+.feature {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
-.hotel-card img {
-  width: 100%;
-  height: 200px;
+
+.feature-icon {
+  color: #e67e22;
+  height: 3.2rem;
+  width: 3.2rem;
+  background-color: #fdf2e9;
+  margin-bottom: 3.2rem;
+  padding: 1.6rem;
+  border-radius: 50%;
+}
+
+.feature-title {
+  font-size: 2.4rem;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 1.6rem;
+}
+
+.feature-text {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.feature-img {
+  border-radius: 1rem;
+  width: 26rem;
+  height: 26rem;
   object-fit: cover;
 }
-.hotel-card h3 {
-  padding: 15px 15px 5px;
-  font-size: 20px;
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+
+.flip-card {
+  background-color: transparent;
+  width: 23.7rem;
+  height: 23.7rem;
+  perspective: 100rem; /* 3D effect */
+  width: 100%;
+  max-width: 23.7rem;
+  margin: 1rem;
 }
-.hotel-card p {
-  padding: 0 15px 10px;
-  color: var(--text-light);
-}
-.rating {
-  padding: 0 15px 15px;
-  color: #f1c40f;
-}
-.view-btn {
-  display: block;
-  width: calc(100% - 30px);
-  margin: 0 15px 15px;
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
   text-align: center;
+  transition: transform 1s;
+  transform-style: preserve-3d;
 }
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+}
+
+/* Style the back side */
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/**************************/
+/* Flip Cards Feature Ends */
+/*
+
+/**************************/
+/* CTA SECTION */
+/**************************/
+
+.section-cta {
+  /* top / right / bottom / left */
+  /* padding: 9.6rem 0 12.8rem 0; */
+
+  /* top / horizontal / left */
+  padding: 4.8rem 0 12.8rem;
+}
+
+.cta {
+  display: grid;
+  /* 2/3 = 66.6% + 1/3 = 33.3% */
+  grid-template-columns: 2fr 1fr;
+  /* background-color: #e67e22; */
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
+  border-radius: 11px;
+
+  background-image: linear-gradient(to right bottom, #eb984e, #e67e22);
+  overflow: hidden;
+}
+
+.cta-text-box {
+  padding: 4.8rem 6.4rem 6.4rem 6.4rem;
+  color: #45260a;
+}
+
+.cta .heading-secondary {
+  /* color: #45260a; */
+  color: inherit;
+  margin-bottom: 3.2rem;
+}
+
+.cta-text {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin-bottom: 4.8rem;
+}
+
+.cta-img-box {
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(235, 151, 78, 0.35),
+      rgba(230, 125, 34, 0.35)
+    ),
+    url("../Images/72.jpg");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.cta-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.2rem;
+  row-gap: 2.4rem;
+}
+
+.cta-form label {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+
+.cta-form input,
+.cta-form select {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  background-color: #fdf2e9;
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.cta-form input::placeholder {
+  color: #aaa;
+}
+
+.cta *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.4rem rgba(253, 242, 233, 0.5);
+}
+
+.booking-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 9rem;
+}
+
+.main-boss-booking:link,
+.main-boss-booking:visited {
+  font-family: "Cormorant", serif;
+  text-decoration: none;
+  font-size: 20rem;
+  display: inline-block;
+  text-decoration: none;
+  color: #0b1320;
+  font-weight: 800;
+  transition: all 2s;
+  text-transform: uppercase;
+}
+
+.main-boss-booking:hover,
+.main-boss-booking:active {
+  letter-spacing: 2rem;
+}
+
+.booking-cta p {
+  font-size: 1.8rem;
+}
+.cta-form textarea {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  background-color: #fdf2e9;
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  resize: vertical;
+  min-height: 120px;
+}
+.cta_button {
+  display: inline-block;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 9px;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  font-size: 19px;
+  cursor: pointer;
+  color: black;
+  z-index: 1;
+  align-self: end;
+  top: 8px;
+}
+
+.cta_button:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.cta_button:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #39bda7;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.cta_button:hover {
+  color: #ffffff;
+  border: 1px solid #39bda7;
+}
+
+.cta_button:hover:before {
+  top: -35%;
+  background-color: #39bda7;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.cta_button:hover:after {
+  top: -45%;
+  background-color: #39bda7;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+/**************************/
+/* FOOTER */
+/**************************/
+
+.footer {
+  padding: 12.8rem 0;
+  border-top: 1px solid #eee;
+}
+
+.grid--footer {
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
+}
+
+.logo-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: block;
+  margin-bottom: 3.2rem;
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: 2.4rem;
+}
+
+.social-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.copyright {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #767676;
+  margin-top: auto;
+}
+
+.footer-heading {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 4rem;
+}
+
+.contacts {
+  font-style: normal;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.address {
+  margin-bottom: 2.4rem;
+}
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.footer-link:link,
+.footer-link:visited {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: #767676;
+  transition: all 0.3s;
+}
+
+.footer-link:hover,
+.footer-link:active {
+  color: #555;
+}
+/* ..............footer part ending.....  */
+
+/* ..................
+
 
 /* Booking Page */
 .booking-page {

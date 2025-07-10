@@ -26,10 +26,11 @@
         </a>
         <ul class="nav-links">
           <li><a href="#" class="active" id="home-link">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Our Services</a></li>
+          <li><a href="#featured-hotels">Featured Hotels</a></li>
+          <li><a href="#facility">Facilities</a></li>
+          <li><a href="#cta">Subscribe</a></li>
+          <li><a href="#footer">Footer</a></li>
           <li><a href="#" id="booking-link">Online Booking</a></li>
-          <li><a href="#">Contact</a></li>
         </ul>
         <div class="hamburger">
           <span></span>
@@ -222,7 +223,7 @@
             </svg>
           </div>
         </button>
-        <div class="delivered-meals">
+        <!-- <div class="delivered-meals">
           <div class="delivered-imgs">
             <div class="img_1">
               <img
@@ -264,7 +265,7 @@
           <p class="delivered-text">
             <span>250,000+</span> satisfied customers last year!
           </p>
-        </div>
+        </div> -->
       </div>
     </section>
     <!-- banner/hero Section ending -->
@@ -741,10 +742,12 @@
     </section>
     <!--......... gallery part ending.......   -->
 
-    <section class="section-pricing" id="pricing">
+    <!-- ........section-flip_card part starting...... -->
+    <section class="section-flip_card" id="flip_card">
       <div class="container">
-        <span class="subheading">Pricing</span>
-        <h2 class="heading-secondary">Eating well without breaking the bank</h2>
+        <h2 class="heading-secondary">
+          Your throne awaits — dine, dream, and reign like royalty.
+        </h2>
       </div>
 
       <div class="container grid grid--4-cols">
@@ -763,7 +766,7 @@
             <div class="flip-card-back">
               <img
                 class="feature-img"
-                src="./Images/Hotel Facilities/65.jpg"
+                src="./Images/Hotel Facilities/Staff/84.jpg"
                 alt="service"
               />
             </div>
@@ -787,7 +790,7 @@
             <div class="flip-card-back">
               <img
                 class="feature-img"
-                src="./Images/Hotel Facilities/50.jpg"
+                src="./Images/Hotel/56.jpg"
                 alt="service"
               />
             </div>
@@ -836,7 +839,7 @@
             <div class="flip-card-back">
               <img
                 class="feature-img"
-                src="./Images/Hotel Facilities/Spa/34.jpg"
+                src="./Images/Hotel Facilities/Event/12.jpg"
                 alt="spa-experience"
               />
             </div>
@@ -844,6 +847,185 @@
         </div>
       </div>
     </section>
+    <!-- ........section-flip_card part ending...... -->
+
+    <!--.......... section-cta starting...............  -->
+
+    <section class="section-cta" id="cta">
+      <div class="container">
+        <div class="cta">
+          <div class="cta-text-box">
+            <h2 class="heading-secondary">
+              <span>Stay in touch.</span>
+              Subscribe to our Newsletter!
+            </h2>
+            <p class="cta-text">
+              The
+              <span class="marquess-estate-font"
+                >Marquess Estate Luxury Hotels</span
+              >
+              – Where every moment becomes a distinguished chapter of elegance
+              and legacy. Ready to embark on your journey into refined luxury?
+            </p>
+
+            <form class="cta-form" name="sign-up" netlify>
+              <div>
+                <label for="full-name">Full Name</label>
+                <input
+                  id="full-name"
+                  type="text"
+                  placeholder="John Smith"
+                  name="full-name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="email">Email address</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="me@example.com"
+                  name="email"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="message">Your Message</label>
+                <textarea
+                  rows="4"
+                  cols="40"
+                  id="message"
+                  placeholder="Share your thoughts...."
+                  name="message"
+                  required
+                ></textarea>
+              </div>
+
+              <div>
+                <label for="select-where">Where did you hear from us?</label>
+                <select id="select-where" name="select-where" required>
+                  <option value="">Please choose one option:</option>
+                  <option value="friends">Friends and family</option>
+                  <option value="youtube">YouTube video</option>
+                  <option value="podcast">Podcast</option>
+                  <option value="ad">Facebook ad</option>
+                  <option value="others">Others</option>
+                </select>
+              </div>
+
+              <button class="btn cta_button">Sign up now</button>
+
+              <!-- <input type="checkbox" />
+                <input type="number" /> -->
+            </form>
+          </div>
+          <div
+            class="cta-img-box"
+            role="img"
+            aria-label="Woman enjoying food"
+          ></div>
+        </div>
+      </div>
+    </section>
+    <!--.......... section-cta starting...............  -->
+
+    <!-- ............stretching booking-cta starting......  -->
+    <section class="container booking-cta">
+      <a href="#" class="main-boss-booking">Booking</a>
+      <p>
+        Be the first to begin your unforgettable experience here...
+        <ion-icon name="arrow-redo-outline"></ion-icon>
+      </p>
+    </section>
+    <!-- ............stretching booking-cta ending......  -->
+
+    <!--.......... footer starting...............  -->
+    <footer class="footer" id="footer">
+      <div class="container grid grid--footer">
+        <div class="logo-col">
+          <a href="#" class="footer-logo">
+            <img
+              class="logo"
+              alt="The Marquess Estate logo"
+              src="./Images/Hotel Logo/darker.png"
+            />
+          </a>
+
+          <ul class="social-links">
+            <li>
+              <a class="footer-link" href="#"
+                ><ion-icon class="social-icon" name="logo-instagram"></ion-icon
+              ></a>
+            </li>
+            <li>
+              <a class="footer-link" href="#"
+                ><ion-icon class="social-icon" name="logo-facebook"></ion-icon
+              ></a>
+            </li>
+            <li>
+              <a class="footer-link" href="#"
+                ><ion-icon class="social-icon" name="logo-twitter"></ion-icon
+              ></a>
+            </li>
+          </ul>
+
+          <p class="copyright">
+            Copyright &copy; <span class="year">2027</span> by The Marquess
+            Estate, Inc. All rights reserved.
+          </p>
+        </div>
+
+        <div class="address-col">
+          <p class="footer-heading">Contact us</p>
+          <address class="contacts">
+            <p class="address">
+              Rajuk Rajib Cosmo Shopping Complex 7th Floor, H # 71, R # 5,
+              Azampur, 1230
+            </p>
+            <p>
+              <a class="footer-link" href="tel:+880-17-1145-8760"
+                >+880-17-1145-8760</a
+              ><br />
+              <a class="footer-link" href="mailto:hello@marquesshotels.com"
+                >hello@marquesshotels.com</a
+              >
+            </p>
+          </address>
+        </div>
+
+        <nav class="nav-col">
+          <p class="footer-heading">Account</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">Create account</a></li>
+            <li><a class="footer-link" href="#">Sign in</a></li>
+            <li><a class="footer-link" href="#">iOS app</a></li>
+            <li><a class="footer-link" href="#">Android app</a></li>
+          </ul>
+        </nav>
+
+        <nav class="nav-col">
+          <p class="footer-heading">Company</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">About Marquess</a></li>
+            <li><a class="footer-link" href="#">For Business</a></li>
+            <li><a class="footer-link" href="#">Hotel partners</a></li>
+            <li><a class="footer-link" href="#">Careers</a></li>
+          </ul>
+        </nav>
+
+        <nav class="nav-col">
+          <p class="footer-heading">Resources</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">Hotel directory </a></li>
+            <li><a class="footer-link" href="#">Help center</a></li>
+            <li><a class="footer-link" href="#">Privacy & terms</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+    <!--.......... footer starting...............  -->
 
     <!-- Booking Page part starting-->
     <section class="booking-page" id="booking-page">
@@ -981,10 +1163,10 @@
     ></script>
 
     <!-- Smooth Scrolling -->
-    <script
+    <!-- <script
       defer
       src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"
-    ></script>
+    ></script> -->
 
     <!-- My Custom js -->
     <script defer src="js/script.js"></script>
