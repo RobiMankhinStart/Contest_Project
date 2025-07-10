@@ -16,6 +16,8 @@ const bookingFormContainer = document.getElementById("booking-form-container");
 const viewButtons = document.querySelectorAll(".view-btn");
 const confirmBookingBtn = document.getElementById("confirm-booking");
 const allSections = document.querySelectorAll("section");
+const footer = document.getElementById("footer");
+
 const allNavItems = document.querySelectorAll(".nav-links li");
 const sectionLinks = document.querySelectorAll(
   '.nav-links a[href^="#"]:not(#home-link):not(#booking-link)'
@@ -79,6 +81,7 @@ function hideAllSections() {
   allSections.forEach((section) => {
     if (section.id !== "booking-page") {
       section.style.display = "none";
+      // footer.style.display = "none";
     }
   });
 }
@@ -90,6 +93,7 @@ function showAllSections() {
   bookingPage.style.display = "none";
   heroSection.style.display = "flex";
   featuredHotels.style.display = "block";
+  // footer.style.display = "block";
 }
 
 function hideSectionNavLinks() {
@@ -109,14 +113,14 @@ function showBookingPage(selectedLocation = null) {
   bookingPage.style.display = "block";
   window.scrollTo(0, 50);
 
-  // Update active nav links
+  // Updating active nav links
   document.querySelectorAll(".nav-links li a").forEach((link) => {
     link.classList.remove("active");
   });
   bookingLink.classList.add("active");
   hideSectionNavLinks();
 
-  // Initialize booking page
+  // Initializing booking page
   initializeBookingPage(selectedLocation);
 }
 
@@ -125,7 +129,7 @@ function showHomePage() {
   window.scrollTo(0, 0);
   showSectionNavLinks();
 
-  // Update active nav links
+  // Updating active nav links
   document.querySelectorAll(".nav-links li a").forEach((link) => {
     link.classList.remove("active");
   });
@@ -189,7 +193,7 @@ function showBookingForm(location) {
 
   bookingFormContainer.style.display = "block";
 
-  // Add event listeners
+  // Adding event listeners
   ["room-type", "adults", "children", "check-in", "check-out"].forEach((id) => {
     document.getElementById(id).addEventListener("change", updatePriceSummary);
   });

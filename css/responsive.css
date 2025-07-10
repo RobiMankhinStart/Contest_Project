@@ -440,3 +440,54 @@
     margin-bottom: 4.8rem;
   }
 }
+/* Facility Section Styles */
+
+@media (min-width: 768px) {
+  .custom-grid--2-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.step-text-box {
+  padding: 2rem;
+}
+
+.step-number {
+  font-size: 8.6rem;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 1.2rem;
+}
+
+.step-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
+.step-description span {
+  font-size: 2.6rem;
+  font-family: "Cormorant", serif;
+  font-weight: 800;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .step-img img {
+    height: 250px;
+  }
+
+  .step-number {
+    font-size: 6.2rem;
+  }
+
+  .step-description {
+    font-size: 1.6rem;
+  }
+
+  .step-description span {
+    font-size: 2rem;
+  }
+}
+
+/* FACILITY part ending*/
+/**************************/
