@@ -326,6 +326,67 @@ function updatePriceSummary() {
 }
 
 // =========..........................
+// FORM NOTIFICATION SYSTEM
+// =========..........................
+function initializeFormNotifications() {
+  const form = document.querySelector(".cta-form");
+  if (!form) return;
+
+  // Create notification element
+  const notification = document.createElement("div");
+  notification.className = "form-notification hidden";
+  document.body.appendChild(notification);
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Show loading state
+    const submitButton = form.querySelector(".cta_button");
+    const originalText = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+
+    // Use Netlify's native form handling
+    const formData = new FormData(form);
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString(),
+    })
+      .then(() => {
+        showNotification(
+          "Thank you! Your message has been sent successfully.",
+          "success"
+        );
+        form.reset();
+      })
+      .catch((error) => {
+        showNotification(
+          "Oops! Something went wrong. Please try again later.",
+          "error"
+        );
+        console.error("Form submission error:", error);
+      })
+      .finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      });
+  });
+
+  function showNotification(message, type) {
+    const notification = document.querySelector(".form-notification");
+    notification.textContent = message;
+    notification.className = `form-notification ${type} show`;
+
+    // Hide after 5 seconds
+    setTimeout(() => {
+      notification.classList.remove("show");
+    }, 5000);
+  }
+}
+
+// =========..........................
 // EVENT LISTENERS
 // =========..........................
 hamburger.addEventListener("click", () => {
@@ -430,6 +491,9 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     console.warn("jQuery or Slick slider not loaded - sliders won't work");
   }
+
+  // Initialize form notifications
+  initializeFormNotifications();
 
   const lastLocation =
     sessionStorage.getItem("lastSelectedLocation") || "dhaka";

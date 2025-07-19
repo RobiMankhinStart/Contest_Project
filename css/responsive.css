@@ -215,6 +215,12 @@
     margin: 0 auto;
   }
 
+  /* ..........cta form notification   */
+  .form-notification {
+    width: 90%;
+    padding: 12px 20px;
+  }
+
   /* Booking CTA text size adjustment */
   .booking-cta {
     padding: 20px;

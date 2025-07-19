@@ -575,7 +575,9 @@
         </div>
       </div>
     </section>
-    <!--.................section-marquee part starting............  -->
+    <!--.................section-marquee part ending............  -->
+
+    <!--......... gallery part starting.......   -->
 
     <section class="section-chef" id="gallery">
       <div class="chef-container">
@@ -712,7 +714,6 @@
           Your throne awaits — dine, dream, and reign like royalty.
         </h2>
       </div>
-
       <div class="container grid grid--4-cols">
         <div class="flip-card">
           <div class="flip-card-inner">
@@ -831,7 +832,16 @@
               and legacy. Ready to embark on your journey into refined luxury?
             </p>
 
-            <form class="cta-form" name="sign-up" netlify>
+            <form
+              class="cta-form"
+              name="sign-up"
+              netlify
+              netlify-honeypot="bot-field"
+            >
+              <!-- Netlify honeypot field (hidden from users) -->
+              <input type="text" name="bot-field" style="display: none" />
+
+              <!-- Your original form fields (unchanged) -->
               <div>
                 <label for="full-name">Full Name</label>
                 <input
@@ -878,10 +888,7 @@
                 </select>
               </div>
 
-              <button class="btn cta_button">Sign up now</button>
-
-              <!-- <input type="checkbox" />
-                <input type="number" /> -->
+              <button type="submit" class="btn cta_button">Sign up now</button>
             </form>
           </div>
           <div
