@@ -65,11 +65,6 @@
     padding: 10px 25px;
   }
   /* .......featured in section.........  */
-  .view-btn {
-    width: 190px;
-    border-radius: 10px;
-    padding: 10px;
-  }
 
   .logos {
     gap: 20px;
@@ -77,6 +72,11 @@
   }
 
   /* Featured hotels grid adjustment */
+  .view-btn {
+    width: 190px;
+    border-radius: 10px;
+    padding: 10px;
+  }
   .featured-hotels {
     padding: 40px 0;
   }
@@ -451,6 +451,10 @@
   /* Featured hotels grid */
   .hotels-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .view-btn {
+    width: 185px;
   }
 
   /* History section padding */
