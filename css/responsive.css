@@ -260,8 +260,10 @@
   }
 
   .booking-option {
-    flex: 1 0 calc(50% - 10px);
+    flex: 1 1 calc(50% - 10px);
     padding: 15px;
+    width: 90%;
+    margin: 0 auto;
     margin-bottom: 5px;
   }
 
@@ -448,8 +450,9 @@
   gap: 32px;
   flex-wrap: nowrap;
 }
+
 .booking-option {
-  flex: 1 0 calc(1px - 10px);
+  flex: 0 0 calc(20% - 10px);
 }
 
 /* booking page booking options ending.......... */
