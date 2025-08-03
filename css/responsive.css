@@ -73,7 +73,7 @@
 
   /* Featured hotels grid adjustment */
   .view-btn {
-    width: 190px;
+    width: 180px;
     border-radius: 10px;
     padding: 10px;
   }
@@ -255,7 +255,8 @@
   .booking-options {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 5px;
+    width: 96%;
+    margin: 0 auto;
   }
 
   .booking-option {
@@ -438,6 +439,20 @@
   max-width: 100%;
   font-size: 14px;
 }
+/* booking page booking options starting.......... */
+.booking-options {
+  flex: 0 0 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  flex-wrap: nowrap;
+}
+.booking-option {
+  flex: 1 0 calc(1px - 10px);
+}
+
+/* booking page booking options ending.......... */
 
 /* ======.................... */
 /* LARGE DEVICES (992-1199px) */

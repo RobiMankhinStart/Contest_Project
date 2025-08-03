@@ -1087,41 +1087,87 @@
 .booking-options {
   flex: 0 0 300px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  flex-wrap: wrap;
 }
 .booking-option {
-  padding: 25px;
-  border-left: 3px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  padding: 16px;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 10px;
   position: relative;
   z-index: 1;
   background-color: transparent;
-}
-.booking-option.active {
-  border-left: 3px solid var(--secondary-color);
-  background-color: rgba(52, 152, 219, 0.05);
-  z-index: 2;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-.booking-option:not(.active) {
-  border-left: 3px solid #eee;
-  background-color: transparent;
+.booking-option:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: #ffd401;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
 }
 
-.booking-option span {
-  display: block;
-  font-size: 14px;
-  color: var(--text-light);
-  margin-bottom: 5px;
+.booking-option:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
 }
+
 .booking-option h3 {
-  font-size: 18px;
-  color: var(--primary-color);
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: 18px 2px;
+  border-radius: 14px;
+  background-color: #98a8a8;
+  color: #fff !important;
+  font-size: 1.125em;
+  font-size: 24px !important;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-.booking-option:hover:not(.active) {
-  background-color: rgba(52, 152, 219, 0.03);
+
+.booking-option:hover h3 {
+  animation: scaleUp 0.3s ease-in-out;
 }
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.booking-option.active {
+  transform: scale(1.05);
+}
+
+.booking-option.active h3 {
+  color: #a7fc86 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .booking-content {
   flex: 1;
   background: white;
