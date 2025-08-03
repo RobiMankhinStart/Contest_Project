@@ -1029,23 +1029,27 @@
 .booking-page h2 {
   text-align: center;
   margin-top: 90px;
-  /* color: var(--two-text-color); */
-  /* color: rgb(185, 166, 141); */
   color: rgb(69, 120, 107);
   margin-bottom: 40px;
   font-size: 36px;
 }
 .hotel-details .view-rooms-btn {
-  font-size: 17px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
   background: var(--four-text-color);
   border: none;
   border-radius: 10px;
   padding: 1em 1.5em;
-  color: var(--bgColorThree);
+  background-color: #98a8a8;
+  color: white;
   text-transform: uppercase;
   position: relative;
   transition: 0.5s ease;
   cursor: pointer;
+
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .hotel-details .view-rooms-btn::before,
 .hotel-details .view-rooms-btn::after {
@@ -1056,9 +1060,9 @@
   width: 100%;
 }
 .hotel-details .view-rooms-btn::before {
-  height: 2px;
+  height: 1px;
   width: 0;
-  background-color: var(--Brand-color);
+  background-color: rgb(56, 55, 55);
   transition: 0.5s ease;
 }
 .hotel-details .view-rooms-btn:hover::before {
@@ -1066,7 +1070,7 @@
 }
 .hotel-details .view-rooms-btn::after {
   height: 0;
-  background-color: var(--Brand-color);
+  background: linear-gradient(to right, #74ebd5, #acb6e5);
   transition: 0.4s ease;
   z-index: -1;
 }
@@ -1075,7 +1079,7 @@
   transition-delay: 0.4s;
 }
 .hotel-details .view-rooms-btn:hover {
-  color: #1e1e2b;
+  color: rgb(56, 55, 55);
   transition-delay: 0.5s;
 }
 
@@ -1173,6 +1177,7 @@
   background: white;
   border-radius: 10px;
   padding: 30px;
+  background: linear-gradient(to right, #e3ddf0, #e9e4f0);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .default-content {
