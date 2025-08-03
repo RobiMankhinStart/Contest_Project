@@ -1022,7 +1022,7 @@
 
 /* Booking Page */
 .booking-page {
-  padding: 100px 0;
+  padding: 40px 0;
   display: none;
   background-color: rgb(245, 242, 238);
 }
@@ -1172,8 +1172,8 @@
   flex: 1;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  padding: 40px;
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .default-content {
   text-align: center;
@@ -1222,6 +1222,7 @@
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 25px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 .hotel-details h3 {
   font-size: 28px;
